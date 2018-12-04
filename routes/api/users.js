@@ -47,4 +47,46 @@ router.post("/register", (req, res) => {
   });
 });
 
+// @route   POST api/users/login
+// @desc    Login a user
+// @access  Public
+router.post("/login", (req, res) => {
+  //FORM VALIDATION DONE BELOW
+  errors = {};
+  //IMPLEMENT FORM VALIDATION ABOVE
+  const email = req.body.email,
+    password = req.body.password;
+  User.findOne({ email: email })
+    .then(user => {
+      if (!user) {
+        errors.email = "No user found with this email and/or password";
+        return res.status(404).json(errors);
+      } else {
+        //Check hashed passwords against one another, validate pass
+        bcrypt
+          .compare(password, user.password)
+          .then(Match => {
+            if (Match) {
+              //Create the json web token payload to for persistent validation
+              const payload = { id: user.id, handle: user.handle };
+              //Sign json web token
+              jwt.sign(
+                payload,
+                keys.passportSecret,
+                { expiresIn: 14400 },
+                (err, token) => {
+                  return res.json({ success: true, token: `Bearer ${token}` });
+                }
+              );
+            } else {
+              errors.password = "No user found with this email and/or password";
+              return res.status(404).json(errors);
+            }
+          })
+          .catch(err => console.log(err));
+      }
+    })
+    .catch(err => console.log(err));
+});
+
 module.exports = router;

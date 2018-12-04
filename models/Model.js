@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-//Creating TrainedModel model
-const TrainedModel = new Schema({
+//Creating Model model
+const ModelSchema = new Schema({
   name: {
     type: String,
     required: true
@@ -25,3 +25,5 @@ const TrainedModel = new Schema({
     default: false
   }
 });
+
+module.exports = Model = mongoose.model("models", ModelSchema);
