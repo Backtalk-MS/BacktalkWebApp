@@ -18,7 +18,7 @@ const UserSchema = new Schema({
   trainedModels: [
     {
       type: Schema.Types.ObjectId,
-      ref: "trainedModels"
+      ref: "models"
     }
   ],
   date: {

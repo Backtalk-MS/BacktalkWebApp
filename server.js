@@ -25,6 +25,12 @@ mongoose
     console.log(`DATABASE CONNECTION COULD NOT BE ESTABLISH: ${err}`)
   );
 
+// Passport middleware
+app.use(passport.initialize());
+
+// Passport config
+require("./configuration/passport")(passport);
+
 //Define used routes
 app.use("/api/users", users);
 app.use("/api/models", models);
