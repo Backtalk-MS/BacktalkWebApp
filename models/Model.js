@@ -22,7 +22,7 @@ const ModelSchema = new Schema({
       }
     }
   ],
-  postUrl: { type: String },
+  postURL: { type: String },
   apiKey: { type: String },
   ready: {
     type: Boolean,
