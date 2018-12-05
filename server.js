@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
 const users = require("./routes/api/users");
+const models = require("./routes/api/models");
 
 const app = express();
 
@@ -24,8 +25,15 @@ mongoose
     console.log(`DATABASE CONNECTION COULD NOT BE ESTABLISH: ${err}`)
   );
 
+// Passport middleware
+app.use(passport.initialize());
+
+// Passport config
+require("./configuration/passport")(passport);
+
 //Define used routes
 app.use("/api/users", users);
+app.use("/api/models", models);
 
 //Backend Server port
 const port = process.env.PORT || 5050;
