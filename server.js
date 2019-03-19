@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const passport = require("passport");
 const users = require("./routes/api/users");
 const models = require("./routes/api/models");
-const cors = require("cors");
+// const cors = require("cors");
 
 const app = express();
 
@@ -12,18 +12,15 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false })); //Shallow parse
 
-//Cors config
-app.use(cors);
+// //Cors config
+// app.use(cors);
 
 //Database uri
 const databaseURI = require("./configuration/keys").databaseURI;
 
 //Validate database connection with successful
 mongoose
-  .connect(
-    databaseURI,
-    { useNewUrlParser: true }
-  )
+  .connect(databaseURI, { useNewUrlParser: true })
   .then(() => console.log("Database connection was established successfully"))
   .catch(err =>
     console.log(`DATABASE CONNECTION COULD NOT BE ESTABLISH: ${err}`)
