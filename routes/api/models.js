@@ -56,6 +56,15 @@ router.post(
             new Model(newModel)
               .save()
               .then(savedModel => {
+                User.findById(req.user.id)
+                  .then(foundUser => {
+                    foundUser.trainedModels.unshift(savedModel);
+                    foundUser
+                      .save()
+                      .then()
+                      .catch(err => console.log(err));
+                  })
+                  .catch(err => console.log(err));
                 return res.json(savedModel);
               })
               .catch(err => {
