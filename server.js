@@ -4,12 +4,16 @@ const bodyParser = require("body-parser");
 const passport = require("passport");
 const users = require("./routes/api/users");
 const models = require("./routes/api/models");
+const cors = require("cors");
 
 const app = express();
 
 //Configure body-parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false })); //Shallow parse
+
+//Cors config
+app.use(cors);
 
 //Database uri
 const databaseURI = require("./configuration/keys").databaseURI;

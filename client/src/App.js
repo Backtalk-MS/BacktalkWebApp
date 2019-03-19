@@ -6,6 +6,7 @@ import Landing from "./components/layout/Landing";
 import "./App.css";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
+import Predict from './components/Model/Predict';
 
 class App extends Component {
   render() {
@@ -17,6 +18,7 @@ class App extends Component {
           <div className="container">
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
+            <Route exact path="/models/predict" component={Predict} />
           </div>
           <Footer />
         </div>

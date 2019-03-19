@@ -25,7 +25,7 @@ class Navbar extends Component {
                 Models
                 <i className="dropdown icon" />
                 <div className="menu">
-                  <Link className="item" to="/">
+                  <Link className="item" to="/models/predict">
                     Predict
                   </Link>
                   <Link className="item" to="/">
