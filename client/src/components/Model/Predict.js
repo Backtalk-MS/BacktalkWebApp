@@ -17,35 +17,7 @@ class Login extends Component {
     this.setState({ [event.target.name]: event.target.value });
   }
 
-  onSubmit(event) {
-    // event.preventDefault();
-    // axios
-    //     .post(
-    //     'https://uswestcentral.services.azureml.net/workspaces/ceeb98b1536e4dc1be16c1390d61d5da/services/3ee0348e5d7045818991a74371f224e0/execute?api-version=2.0&details=true',
-    //     {
-    //         Inputs: {
-    //         input1: {
-    //             ColumnNames: ["Category", "Subcategory", "Title", "Content"],
-    //             Values: [[" ", " ", " ", this.state.commentToPredict]]
-    //         }
-    //         },
-    //         GlobalParameters: {},
-    //     },
-    //     {
-    //         headers: {
-    //         'Authorization': 'Bearer gTBKO2h4dp29PeY5ZwAScz8Kfmz1Ayk9sQiU74mBKu4lFwfQlSspX09MFlqA2tH0c6Gl8E06z7KiKd3WFWNB1Q==',
-    //         "Content-Type": "application/json",
-    //         "Access-Control-Allow-Origin": "*",
-    //         'Access-Control-Allow-Credentials': 'true'
-    //         }
-    //     }
-    //     )
-    //     .then(response => {
-    //         const result = response.data.Results.output1.value.Values[0][0];
-    //         this.state.setState({predictionResult: result});
-    //     })
-    //     .catch(err => console.log(err));
-  }
+  onSubmit(event) {}
 
   render() {
     return (
