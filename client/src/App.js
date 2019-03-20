@@ -9,6 +9,16 @@ import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import Predict from "./components/Model/Predict";
 import store from "./store";
+import jwt_decode from "jwt-decode";
+import setAuthToken from "./utilities/setAuthToken";
+import { setCurrentUser } from "./actions/authActions";
+
+//Check if user already logged in
+if (localStorage.jwtToken) {
+  setAuthToken(localStorage.jwtToken);
+  const decoded = jwt_decode(localStorage.jwtToken);
+  store.dispatch(setCurrentUser(decoded));
+}
 
 class App extends Component {
   render() {

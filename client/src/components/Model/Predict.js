@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-// import axios from "axios";
+import axios from "axios";
 
 class Login extends Component {
   constructor() {
@@ -17,7 +17,19 @@ class Login extends Component {
     this.setState({ [event.target.name]: event.target.value });
   }
 
-  onSubmit(event) {}
+  onSubmit(event) {
+    console.log(this.state.commentToPredict);
+    event.preventDefault();
+    axios
+      .post("/api/models/5c915fd60952fe1628d2a3a2", {
+        comment: this.state.commentToPredict
+      })
+      .then(resp => {
+        console.log(resp);
+        this.setState({ predictionResult: resp.data });
+      })
+      .catch(err => console.log(err));
+  }
 
   render() {
     return (
