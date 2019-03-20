@@ -1,13 +1,25 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { Bar, Line, Pie } from "react-chartjs-2";
+import update from "immutability-helper";
 
 class Login extends Component {
   constructor() {
     super();
     this.state = {
-      commentToPredict: "",
+      commentToPredict: "test",
       errors: {},
-      predictionResult: "Microsoft office"
+      predictionResult: "Microsoft office",
+      chartDataPoints: {},
+      chartDatagram: {
+        labels: ["edge", "excel"],
+        datasets: [
+          {
+            label: "Category Frequency",
+            data: [6, 8]
+          }
+        ]
+      }
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -18,15 +30,43 @@ class Login extends Component {
   }
 
   onSubmit(event) {
-    console.log(this.state.commentToPredict);
     event.preventDefault();
     axios
       .post("/api/models/5c915fd60952fe1628d2a3a2", {
         comment: this.state.commentToPredict
       })
       .then(resp => {
-        console.log(resp);
+        const result = resp.data;
+        var data = { ...this.state.chartDataPoints };
         this.setState({ predictionResult: resp.data });
+        if (!(result in this.state.chartDataPoints)) {
+          data[result] = 1;
+          this.setState({ chartDataPoints: data });
+        } else {
+          data[result] = data[result] + 1;
+          this.setState({ chartDataPoints: data });
+        }
+        const keys_array = Object.keys(this.state.chartDataPoints);
+        console.log(keys_array);
+        const values_array = Object.keys(this.state.chartDataPoints).map(
+          val => this.state.chartDataPoints[val]
+        );
+        console.log(values_array);
+        const dataGramCopy = update(this.state.chartDatagram, {
+          labels: { $set: Object.keys(this.state.chartDataPoints) },
+          datasets: {
+            $set: [{ label: "Category Frequency", data: values_array }]
+          }
+        });
+
+        // var tempDataGram = { ...this.state.chartDatagram };
+        // tempDataGram.labels = Object.keys(this.state.chartDataPoints);
+        // tempDataGram.datasets = {
+        //   label: "Category Frequency",
+        //   data: Object.values(this.state.chartDataPoints)
+        // };
+        console.log(dataGramCopy);
+        this.setState({ chartDatagram: dataGramCopy });
       })
       .catch(err => console.log(err));
   }
@@ -57,6 +97,18 @@ class Login extends Component {
         </div>
         <br />
         <br />
+        <div className="Chart">
+          <Bar
+            data={this.state.chartDatagram}
+            options={{
+              maintainAspectRatio: true,
+              title: { display: true, text: "Category Frequency Counts" },
+              scales: {
+                yAxes: [{ ticks: { beginAtZero: true, min: 0 } }]
+              }
+            }}
+          />
+        </div>
       </div>
     );
   }
