@@ -19,6 +19,10 @@ const ModelSchema = new Schema({
       },
       result: {
         type: String
+      },
+      date: {
+        type: Date,
+        default: Date.now
       }
     }
   ],

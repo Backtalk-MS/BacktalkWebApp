@@ -59,7 +59,7 @@ router.post("/login", (req, res) => {
   User.findOne({ email: email })
     .then(user => {
       if (!user) {
-        errors.email = "No user found with this email";
+        errors.email = `No user found with this email ${email}`;
         return res.status(404).json(errors);
       } else {
         //Check hashed passwords against one another, validate pass

@@ -106,6 +106,10 @@ router.post(
         //couldn't find a model with that id
         errors.modelID = "No model with this model ID exists";
         return res.status(404).json(errors);
+      } else if (model.user.toString() !== req.user.id) {
+        errors.contentRequestedByInvalidUser =
+          "Logged in user does not have ownership of this model";
+        return res.status(403).json(errors);
       } else {
         axios
           .post(
