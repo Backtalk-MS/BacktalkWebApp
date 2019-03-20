@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Bar, Line, Pie } from "react-chartjs-2";
+import { Bar, Line, Pie, defaults } from "react-chartjs-2";
 import update from "immutability-helper";
 
-class Login extends Component {
+class Predict extends Component {
   constructor() {
     super();
     this.state = {
@@ -114,4 +114,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default Predict;
