@@ -14,10 +14,10 @@ class Navbar extends Component {
             Home
           </Link>
           <div className="right menu">
-            <Link to="Login" className="item">
+            <Link to="/Login" className="item">
               Log In
             </Link>
-            <Link to="Register" className="item">
+            <Link to="/Register" className="item">
               Register
             </Link>
             <div className="ui inverted compact menu">
