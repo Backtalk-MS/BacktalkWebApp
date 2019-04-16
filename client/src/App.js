@@ -8,6 +8,7 @@ import "./App.css";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import Predict from "./components/Model/Predict";
+import Account from "./components/auth/Account";
 import store from "./store";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utilities/setAuthToken";
@@ -28,10 +29,13 @@ class App extends Component {
           <div className="App">
             <Navbar />
             <Route exact path="/" component={Landing} />
+            <br/>
+            <br/>
             <div className="container">
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/models/predict" component={Predict} />
+              <Route exact path="/account" component={Account} />
             </div>
             <Footer />
           </div>

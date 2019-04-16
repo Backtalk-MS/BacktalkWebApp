@@ -13,7 +13,10 @@ class Navbar extends Component {
           <Link to="/" className="item">
             Home
           </Link>
-          <div className="right menu">
+          <div className="right menu">/
+            <Link to="/Account" className="item">
+              Account
+            </Link>
             <Link to="/Login" className="item">
               Log In
             </Link>
