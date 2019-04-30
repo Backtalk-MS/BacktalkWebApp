@@ -9,6 +9,7 @@ import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import Predict from "./components/Model/Predict";
 import Account from "./components/auth/Account";
+import Alerts from "./components/alert/Alerts";
 import store from "./store";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utilities/setAuthToken";
@@ -21,6 +22,7 @@ if (localStorage.jwtToken) {
   store.dispatch(setCurrentUser(decoded));
 }
 
+//Within the <div className ="container"> exists the pages/route that the website knows about
 class App extends Component {
   render() {
     return (
@@ -36,6 +38,7 @@ class App extends Component {
               <Route exact path="/login" component={Login} />
               <Route exact path="/models/predict" component={Predict} />
               <Route exact path="/account" component={Account} />
+              <Route exact path="/alerts" component={Alerts} />
             </div>
             <Footer />
           </div>

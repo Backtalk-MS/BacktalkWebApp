@@ -17,6 +17,9 @@ class Navbar extends Component {
             <Link to="/Account" className="item">
               Account
             </Link>
+            <Link to="/Alerts" className="item">
+              Alerts
+            </Link>
             <Link to="/Login" className="item">
               Log In
             </Link>
