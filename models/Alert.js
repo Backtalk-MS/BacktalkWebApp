@@ -4,12 +4,14 @@ const Base = require("./Output")
 
 //Create model schema
 const AlertSchema = new Schema({
-    Endpoint: {
-        type: String,
+    Endpoint: {//Possible to make a string or is it best this way?
+        type: Schema.Types.ObjectId,
+        ref: "endpoints",
         required: true
     },
-    Model: {//This should probably be a model_id
-        name: String,
+    Model: {//Possible to make a string or is it best this way?
+        type: Schema.Types.ObjectId,
+        ref: "models",
         required: true
     },
     Label: {
@@ -22,4 +24,4 @@ const AlertSchema = new Schema({
     }
 });
 
-module.exports = Alert = mongoose.model("bugs", AlertSchema)
+module.exports = Alert = mongoose.model("alerts", AlertSchema)

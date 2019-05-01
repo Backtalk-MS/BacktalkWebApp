@@ -44,3 +44,5 @@ export const setCurrentUser = decoded => {
     payload: decoded
   };
 };
+
+//TODO: Get current logged in user
