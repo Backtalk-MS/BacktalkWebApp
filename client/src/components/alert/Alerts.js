@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import axios from "axios";
-import mongoose from "mongoose";
+import { getCurrentUser } from "../../actions/authActions";
 
 
 class Alerts extends Component{
     constructor() {
         super();
+        //this.endpoints = getCurrentUser()
         this.state = {
-            user: "MyName",
+            user: "",
             endpoint: "",
             selectedModel: "",
             threshold: 0,
@@ -99,7 +99,7 @@ class Alerts extends Component{
                     </div>
                 </div>
 
-
+                
 
                 <div /* This section is for testing purposes */ className="ui main text container">
                     <h1 >User: {this.state.user}</h1>

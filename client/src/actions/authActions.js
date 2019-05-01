@@ -45,4 +45,15 @@ export const setCurrentUser = decoded => {
   };
 };
 
-//TODO: Get current logged in user
+//Get current logged in user json object
+export const getCurrentUser = decoded => {
+  try {
+    const JWToken = localStorage.getItem("jwtToken");
+    setAuthToken(JWToken);
+    //Decode the json web token => User data
+    const decoded_token = jwt_decode(JWToken);
+    return decoded_token;
+  } catch (error) {
+    console.log("Attempted to grab current user data while not logged in.")
+  }
+}
