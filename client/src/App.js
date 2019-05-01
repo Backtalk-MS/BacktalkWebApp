@@ -8,6 +8,7 @@ import "./App.css";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import Predict from "./components/Model/Predict";
+import Train from "./components/Model/Train";
 import Account from "./components/auth/Account";
 import Alerts from "./components/alert/Alerts";
 import store from "./store";
@@ -39,6 +40,7 @@ class App extends Component {
               <Route exact path="/models/predict" component={Predict} />
               <Route exact path="/account" component={Account} />
               <Route exact path="/alerts" component={Alerts} />
+              <Route exact path="/models/train" component={Train} />
             </div>
             <Footer />
           </div>

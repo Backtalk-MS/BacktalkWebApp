@@ -34,7 +34,7 @@ class Navbar extends Component {
                   <Link className="item" to="/models/predict">
                     Predict
                   </Link>
-                  <Link className="item" to="/">
+                  <Link className="item" to="/models/train">
                     Train
                   </Link>
                 </div>

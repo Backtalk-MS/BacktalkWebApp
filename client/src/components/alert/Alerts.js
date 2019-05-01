@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
+import mongoose from "mongoose";
 
 
 class Alerts extends Component{
@@ -41,7 +42,6 @@ class Alerts extends Component{
         if(this.state.threshold < 1) {
             return;
         }
-
         
     }
 
