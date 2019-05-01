@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import { getCurrentUser } from "../../actions/authActions";
 
 class Alerts extends Component {
@@ -58,7 +57,7 @@ class Alerts extends Component {
     //Need to convert the state's threshold to a number
     //check if the threshold is negative, if it is error
     //store
-    console.log("testing");
+    //console.log("testing");
     if (this.state.selectedModel === "") {
       //Popup to warn that selected model is not selected
       console.log("testing");
@@ -122,7 +121,11 @@ class Alerts extends Component {
               <option value="Label 1">Label 1</option>
             </select>
 
-            <form className="ui form" onChange={this.onChange}>
+            <form
+              className="ui form"
+              onChange={this.onChange}
+              onSubmit={this.submitAlert}
+            >
               <div className="field">
                 <label>Enter threshold amount to trigger</label>
                 <input
@@ -133,11 +136,8 @@ class Alerts extends Component {
                   placeholder="10" //Starts at 0 from the state
                 />
               </div>
+              <button className="ui button">Create Alert</button>
             </form>
-
-            <button className="ui button" onSubmit={this.submitAlert}>
-              Create Alert
-            </button>
           </div>
         </div>
 
