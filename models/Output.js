@@ -2,38 +2,43 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const baseOptions = {
-    discriminatorKey: 'outputType'
-}
+  discriminatorKey: "outputType"
+};
 
 //Create model schema
-const OutputBaseSchema = mongoose.model(new Schema({
-    /*ID: {
+const OutputBaseSchema = mongoose.model(
+  new Schema(
+    {
+      /*ID: {
         type: Number,//Integer always incrementing with each new to our system
         required: true
     }, //This is already done by mongoDB. Every object has it's own id*/
-    RawText: { 
+      rawText: {
         type: String,
         required: true
-    },
-    ProcessedText: {
+      },
+      processedText: {
         type: String,
         required: true
-    },
-    Date: {
+      },
+      date: {
         type: Date,
         default: Date.now,
         required: true
-    },
-    Endpoint: {
+      },
+      endpoint: {
         type: Schema.Types.ObjectId,
         ref: "endpoints",
         required: true
-    },
-    KeyPhrase: {
+      },
+      keyPhrase: {
         type: String,
         requried: true
-    }
-    //The entry "category" will be used in the models that inherit from this one
-}, baseOptions));
+      }
+      //The entry "category" will be used in the models that inherit from this one
+    },
+    baseOptions
+  )
+);
 
-module.exports = Output = mongoose.model("outputs", OutputBaseSchema)
+module.exports = Output = mongoose.model("outputs", OutputBaseSchema);
