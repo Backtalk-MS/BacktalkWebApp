@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { getCurrentUser } from "../../actions/authActions";
+import axios from "axios";
 
 class Alerts extends Component {
   constructor() {
@@ -51,30 +52,41 @@ class Alerts extends Component {
   submitAlert = event => {
     event.preventDefault();
     //Submits with state's values
-    //first validate that a collection exists for the requirements
+    //first validate that a collection exists for the requirements (BACKEND)
     //if not, create it
     //create json object to store
-    //Need to convert the state's threshold to a number
     //check if the threshold is negative, if it is error
     //store
-    //console.log("testing");
     if (this.state.selectedModel === "") {
       //Popup to warn that selected model is not selected
-      console.log("testing");
+      console.log("Invalid model");
       return;
     }
     if (this.state.endpoint === "") {
-      console.log("testing");
+      console.log("Invalid endpoint");
       return;
     }
     if (this.state.label === "") {
-      console.log("testing");
+      console.log("Invalid label");
       return;
     }
     if (this.state.threshold < 1) {
-      console.log("testing");
+      console.log("Invalid threshold");
       return;
     }
+
+    axios
+      .post("/api/alerts", {
+        endpoint: this.state.endpoint,
+        model: this.state.selectedModel,
+        threshold: this.state.threshold,
+        label: this.state.label,
+        timespan: Date.now() //TODO: Need to add a way to add a time on the page
+      })
+      .then(resp => {
+        const result = resp.data;
+        console.log(result);
+      });
   };
 
   handleChange = event => {

@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const passport = require("passport");
 const users = require("./routes/api/users");
 const models = require("./routes/api/models");
+const alerts = require("./routes/api/alerts");
 // const cors = require("cors");
 
 const app = express();
@@ -35,6 +36,7 @@ require("./configuration/passport")(passport);
 //Define used routes
 app.use("/api/users", users);
 app.use("/api/models", models);
+app.use("/api/alerts", alerts);
 
 //Backend Server port
 const port = process.env.PORT || 5050;
