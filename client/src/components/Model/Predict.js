@@ -12,11 +12,11 @@ class Predict extends Component {
       predictionResult: "Microsoft office",
       chartDataPoints: {},
       chartDatagram: {
-        labels: ["edge", "excel"],
+        labels: ["category", "sentiment", "Custom Model1"],
         datasets: [
           {
-            label: "Category Frequency",
-            data: [6, 8]
+            label: "Alert Frequency",
+            data: [1, 3, 6]
           }
         ]
       }
@@ -31,6 +31,7 @@ class Predict extends Component {
 
   onSubmit(event) {
     event.preventDefault();
+
     axios
       .post("/api/models/5c915fd60952fe1628d2a3a2", {
         comment: this.state.commentToPredict
@@ -98,7 +99,7 @@ class Predict extends Component {
         <br />
         <br />
         <div className="Chart">
-          <Bar
+          <Pie
             data={this.state.chartDatagram}
             options={{
               maintainAspectRatio: true,

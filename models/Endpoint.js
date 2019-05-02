@@ -13,6 +13,13 @@ const EndpointSchema = new Schema({
       ref: "users",
       required: true
     }
+  ],
+  models: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "models",
+      required: true
+    }
   ]
 });
 

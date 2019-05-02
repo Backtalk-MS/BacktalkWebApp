@@ -27,7 +27,8 @@ router.post(
           console.log("Endpoint doesn't exist yet, this is GOOD");
           endPointToInsert = new Endpoint({
             name: req.body.endpoint,
-            users: [req.body.user.id]
+            users: [req.body.user.id],
+            models: [] //TODO: Fix this to be the standard 2 models
           });
           endPointToInsert.save().then(insertedEndPoint => {
             if (insertedEndPoint) {
