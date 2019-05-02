@@ -9,36 +9,27 @@ class Landing extends Component {
           <br />
           <br />
           <p>
-            <strong>Home Page</strong>
+            <strong>Home</strong>
           </p>
           <p>
-            <strong>Streamlining User Feedback</strong>
+            <center><strong><font size="+3">Welcome To BackTalk!</font></strong></center>
           </p>
           <p>
-            Lorem ipsum dolor amet pour-over bespoke typewriter knausgaard
-            yuccie you probably haven't heard of them single-origin coffee.
-            Microdosing cardigan vinyl prism, heirloom yr shaman gluten-free
-            raclette blue bottle. Gastropub polaroid shoreditch gochujang hell
-            of affogato. Put a bird on it bicycle rights distillery, live-edge
-            unicorn single-origin coffee poutine irony copper mug ugh
-            cold-pressed.
+            Developed by Washington State University (WSU) software engineering students, 
+            this is a Feedback Collection and Analysis System. 
           </p>
           <p>
-            Bespoke fashion axe next level, glossier readymade fanny pack enamel
-            pin waistcoat semiotics. Shoreditch portland listicle kitsch. Irony
-            ugh chambray schlitz art party food truck succulents. Mumblecore air
-            plant coloring book retro, roof party meh chicharrones truffaut
-            8-bit tousled pitchfork. Live-edge tattooed health goth kale chips,
-            lomo brunch try-hard raclette subway tile coloring book 3 wolf moon.
-            Fixie cardigan marfa yuccie. Neutra four dollar toast pok pok
-            drinking vinegar distillery.
+            Using Artificial Intelligence modeling text is grouped, classified, and displayed 
+            based on sentiment and context in a scalable and dynamic environment. This allows 
+            companies to interpolate consumer feedback on a large scale and search for trends,
+            identify specific bugs or abnormalities in real time, create alerts for keywords 
+            such as "broken" or "newest update" and display results on varied graghs and/or 
+            charts for simple and easy analysis.  
           </p>
           <p>
-            Schlitz iPhone readymade bitters four dollar toast marfa retro man
-            bun pop-up pinterest affogato poke banh mi. Retro DIY tbh shoreditch
-            farm-to-table. YOLO heirloom kitsch kale chips letterpress authentic
-            live-edge. Mustache seitan yr irony. Raclette master cleanse
-            heirloom kinfolk locavore taxidermy lomo vape.
+            To get started, create a profile by <strong><i><a href="http://truetelly.com"> registering </a></i></strong> and browse available models.
+            BackTalk is currently hosted locally only with plans to obtain a MIT (open source)
+            license in the near future.  
           </p>
           <br />
         </div>
