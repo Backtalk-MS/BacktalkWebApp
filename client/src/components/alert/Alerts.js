@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import { getCurrentUser } from "../../actions/authActions";
 import axios from "axios";
+import { isUndefined } from "util";
 
 class Alerts extends Component {
   constructor() {
     super();
     this.loggedInUser = Object(getCurrentUser());
-    //this.endpoints = loggedInUser.endpoints;
+    this.endpointList = this.loggedInUser.endpoints;
+    console.log("Endpoint list: " + this.endpointList);
     this.state = {
       user: this.loggedInUser.handle,
       endpoint: "",
@@ -15,26 +17,18 @@ class Alerts extends Component {
       label: "",
       errors: {}
     };
-    //this.submitAlert = this.submitAlert.bind(this); //Used for submitting an alert
-    //this.handleChange = this.handleChange.bind(this);//Used with selecting alert attributes
   }
 
-  //Returns a selectList comprised of the contents of the parameters
+  //Alerts the children of a given select DOM element
   //@Parameters: options: list of strings, stateAttribute: what stateAttribute you'll be setting
   //@Return: select: document element of type 'select' that is filled with the options contents
   getSelectOptions(selectList, options, stateAttribute) {
-    if (typeof option != Array) {
+    if (Array.isArray(options)) {
       console.log(
         "Function 'getSelectOptions' received wrong type arguments. 'options' was not of type Array"
       );
       return;
     }
-    //Create list
-    /*
-    var selectList = document.createElement("select");
-    selectList.value = stateAttribute;
-    selectList.onchange = this.handleChange;
-    */
     //Add the first option for presentation purposes
     var option = document.createElement("option");
     option.value = "";
@@ -51,12 +45,6 @@ class Alerts extends Component {
 
   submitAlert = event => {
     event.preventDefault();
-    //Submits with state's values
-    //first validate that a collection exists for the requirements (BACKEND)
-    //if not, create it
-    //create json object to store
-    //check if the threshold is negative, if it is error
-    //store
     if (this.state.selectedModel === "") {
       //Popup to warn that selected model is not selected
       console.log("Invalid model");
@@ -118,11 +106,14 @@ class Alerts extends Component {
             <select
               value={this.state.endpoint}
               name="endpoint"
+              id="sel1"
               onChange={this.handleChange}
-            >
-              <option value="">- Select an endpoint -</option>
-              <option value="Endpoint2">Endpoint 2</option>
-            </select>
+              onLoad={this.getSelectOptions(
+                document.getElementById("sel1"),
+                this.endpointList,
+                "endpoint"
+              )}
+            />
 
             <select
               value={this.state.label}

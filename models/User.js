@@ -21,6 +21,12 @@ const UserSchema = new Schema({
       ref: "models"
     }
   ],
+  endpoints: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "endpoints"
+    }
+  ],
   date: {
     type: Date,
     default: Date.now

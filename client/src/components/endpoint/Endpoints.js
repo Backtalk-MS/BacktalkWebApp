@@ -40,7 +40,7 @@ class Endpoint extends Component {
     axios
       .post("/api/endpoints", {
         endpoint: this.state.endpoint,
-        users: [this.loggedInUser]
+        user: this.loggedInUser
       })
       .then(resp => {
         const result = resp.data;
