@@ -11,6 +11,7 @@ import Predict from "./components/Model/Predict";
 import Train from "./components/Model/Train";
 import Account from "./components/auth/Account";
 import Alerts from "./components/alert/Alerts";
+import Endpoints from "./components/endpoint/Endpoints";
 import store from "./store";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utilities/setAuthToken";
@@ -32,8 +33,8 @@ class App extends Component {
           <div className="App">
             <Navbar />
             <Route exact path="/" component={Landing} />
-            <br/>
-            <br/>
+            <br />
+            <br />
             <div className="container">
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
@@ -41,6 +42,7 @@ class App extends Component {
               <Route exact path="/account" component={Account} />
               <Route exact path="/alerts" component={Alerts} />
               <Route exact path="/models/train" component={Train} />
+              <Route exact path="/endpoints" component={Endpoints} />
             </div>
             <Footer />
           </div>

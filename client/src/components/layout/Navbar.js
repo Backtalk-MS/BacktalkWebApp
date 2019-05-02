@@ -13,7 +13,8 @@ class Navbar extends Component {
           <Link to="/" className="item">
             Home
           </Link>
-          <div className="right menu">/
+          <div className="right menu">
+            /
             <Link to="/Account" className="item">
               Account
             </Link>
@@ -25,6 +26,9 @@ class Navbar extends Component {
             </Link>
             <Link to="/Register" className="item">
               Register
+            </Link>
+            <Link to="/Endpoints" className="item">
+              Software Groups
             </Link>
             <div className="ui inverted compact menu">
               <div className="ui simple dropdown item">
