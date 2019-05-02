@@ -5,7 +5,7 @@ import axios from "axios";
 class Endpoint extends Component {
   constructor() {
     super();
-    this.loggedInUser = Object(getCurrentUser());
+    this.loggedInUser = getCurrentUser();
     this.state = {
       endpoint: "",
       errors: {}

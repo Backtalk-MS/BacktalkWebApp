@@ -8,6 +8,7 @@ class Alerts extends Component {
     super();
     this.loggedInUser = Object(getCurrentUser());
     this.endpointList = this.loggedInUser.endpoints;
+    this.sel1 = null;
     console.log("Endpoint list: " + this.endpointList);
     this.state = {
       user: this.loggedInUser.handle,
@@ -28,6 +29,8 @@ class Alerts extends Component {
         "Function 'getSelectOptions' received wrong type arguments. 'options' was not of type Array"
       );
       return;
+    } else if (typeof selectList !== null) {
+      console.log("selectList is null.");
     }
     //Add the first option for presentation purposes
     var option = document.createElement("option");
@@ -78,7 +81,8 @@ class Alerts extends Component {
   };
 
   handleChange = event => {
-    this.setState({
+    console.log(event.target);
+    this.this.setState({
       [event.target.name]: event.target.value
     });
   };
@@ -95,25 +99,21 @@ class Alerts extends Component {
         <div className="ui container">
           <div className="ui simple compacted menu" align="center">
             <select
-              value={this.state.selectedModel}
-              name="selectedModel"
-              onChange={this.handleChange}
-            >
-              <option value="">- Select a model -</option>
-              <option value="model y">Model y</option>
-            </select>
-
-            <select
               value={this.state.endpoint}
               name="endpoint"
               id="sel1"
               onChange={this.handleChange}
-              onLoad={this.getSelectOptions(
-                document.getElementById("sel1"),
-                this.endpointList,
-                "endpoint"
-              )}
             />
+
+            <select
+              value={this.state.selectedModel}
+              name="selectedModel"
+              onChange={this.handleChange}
+              id="sel2"
+            >
+              <option value="">- Select a model -</option>
+              <option value="model y">Model y</option>
+            </select>
 
             <select
               value={this.state.label}
