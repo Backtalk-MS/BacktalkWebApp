@@ -1,7 +1,9 @@
 import React, { Component } from "react";
+import linechart from "../charts/LineChart";
 import axios from "axios";
 import { Bar, Line, Pie, defaults } from "react-chartjs-2";
 import update from "immutability-helper";
+import { getCurrentUser } from "../../actions/authActions";
 
 class Predict extends Component {
   constructor() {
@@ -31,6 +33,7 @@ class Predict extends Component {
 
   onSubmit(event) {
     event.preventDefault();
+    console.log(typeof getCurrentUser() === "undefined");
     axios
       .post("/api/models/5c915fd60952fe1628d2a3a2", {
         comment: this.state.commentToPredict
@@ -77,6 +80,14 @@ class Predict extends Component {
         <br />
         <br />
         <br />
+        <linechart
+          title={"Test TTilsdifsd"}
+          data={[5, 6, 7, 3]}
+          labels={[1, 2, 3, 4]}
+          width={200}
+          height={300}
+          options={{ maintainAspectRatio: false }}
+        />
         <form className="ui form" onSubmit={this.onSubmit}>
           <div className="field">
             <label>Enter data to predict</label>
