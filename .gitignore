@@ -65,5 +65,5 @@ configuration/keys.js
 
 .vscode/
 
-clientUpload/*
-!clientUpload/.gitkeepmearound
+clientUploads/*
+!clientUploads/.gitkeepmearound
