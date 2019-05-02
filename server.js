@@ -20,13 +20,32 @@ app.use(bodyParser.urlencoded({ extended: false })); //Shallow parse
 //Database uri
 const databaseURI = require("./configuration/keys").databaseURI;
 
-//Validate database connection with successful
-mongoose
+var connectionAttempts = 0;
+
+establishMongooseConnectionWithRetry = (maxAttempts) => {
+  return mongoose
   .connect(databaseURI, { useNewUrlParser: true })
   .then(() => console.log("Database connection was established successfully"))
-  .catch(err =>
-    console.log(`DATABASE CONNECTION COULD NOT BE ESTABLISH: ${err}`)
+  .catch(err =>{
+    connectionAttempts++;
+    if(connectionAttempts < maxAttempts){
+      console.log(`Reattempting database connection in 3 seconds ${err}`);
+      setTimeout(establishMongooseConnectionWithRetry,3000);
+    }else{
+      console.log(`DATABASE CONNECTION FAILURE: Exhausted connection attempts.`);
+    }
+  }
   );
+}
+
+//Validate database connection with successful
+establishMongooseConnectionWithRetry(3);
+// mongoose
+//   .connect(databaseURI, { useNewUrlParser: true })
+//   .then(() => console.log("Database connection was established successfully"))
+//   .catch(err =>
+//     console.log(`DATABASE CONNECTION COULD NOT BE ESTABLISH: ${err}`)
+//   );
 
 // Passport middleware
 app.use(passport.initialize());
