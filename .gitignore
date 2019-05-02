@@ -64,3 +64,6 @@ typings/
 configuration/keys.js
 
 .vscode/
+
+clientUpload/*
+!clientUpload/.gitkeepmearound
