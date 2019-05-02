@@ -11,10 +11,11 @@ const Endpoint = require("../../models/Endpoint");
 router.get("/index", (req, res) => res.json({ message: "Hope you see this" }));
 
 router.post(
-  "/api/alerts/",
+  "/",
   passport.authenticate("jwt", { session: false }, (req, res) => {
     const errors = {};
     console.log(req);
+    console.log(res);
     alertToInsert = {
       endpoint: req.body.endpoint, //have to find endpoint
       model: req.body.model, //chosen model
