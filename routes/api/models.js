@@ -1,7 +1,8 @@
 const router = require("express").Router(),
   mongoose = require("mongoose"),
   passport = require("passport"),
-  axios = require("axios");
+  axios = require("axios"),
+  upload = require("../../configuration/storage");
 
 //IMPORT FORM VALIDATION vvvvvv//
 
@@ -93,6 +94,20 @@ router.post(
   }
 );
 
+// @route   POST api/models/train
+// @desc    Submit comment to predictive webservice
+// @access  Private
+router.post(
+  "/train",
+  [
+    passport.authenticate("jwt", { session: false }),
+    upload.single("selectedFile")
+  ],
+  (req, res) => {
+    res.json({ msg: "Well it didn't immediately crash" });
+  }
+);
+
 // @route   POST api/models/:model_id
 // @desc    Submit comment to predictive webservice
 // @access  Private
@@ -149,4 +164,5 @@ router.post(
     });
   }
 );
+
 module.exports = router;

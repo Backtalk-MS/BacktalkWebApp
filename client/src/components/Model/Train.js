@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 class Train extends Component {
   constructor() {
@@ -9,11 +10,35 @@ class Train extends Component {
       modelName: "NewModelName", //new model name to add to the endpoint
       labels: ["label1", "label2", "label3"],
       dataset: {},
-      errors: {}
+      errors: {},
+      description: "",
+      selectedFile: ""
     };
   }
 
-  submitBttn = event => {};
+  onSubmit = event => {
+    event.preventDefault();
+    const { description, selectedFile } = this.state;
+    let formData = new FormData();
+    formData.append("description", description);
+    formData.append("selectedFile", selectedFile);
+    axios
+      .post("/api/models/train", formData)
+      .then(console.log("Successfully uploaded a file"))
+      .catch(error => {
+        console.log(`Unsuccessfully uploaded a file with error ${error}`);
+      });
+  };
+
+  onChange = event => {
+    if (event.target.name === "selectedFile") {
+      console.log("Definitely....");
+      console.log();
+      this.setState({ selectedFile: event.target.files[0] });
+    } else {
+      this.setState({ [event.target.name]: event.target.value });
+    }
+  };
 
   handleChange = event => {
     this.setState({
@@ -46,6 +71,16 @@ class Train extends Component {
           </b>
           <br />
         </div>
+        <form onSubmit={this.onSubmit}>
+          <input
+            type="text"
+            name="description"
+            value={this.state.description}
+            onChange={this.onChange}
+          />
+          <input type="file" name="selectedFile" onChange={this.onChange} />
+          <button type="submit">Submit</button>
+        </form>
       </div>
     );
   }
