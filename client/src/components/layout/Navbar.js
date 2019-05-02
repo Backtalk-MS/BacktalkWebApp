@@ -7,8 +7,12 @@ class Navbar extends Component {
     super(props);
     this.signOutUser = this.signOutUser.bind(this);
   }
-  signOutUser() {
-    console.log("got here");
+  signOutUser(event) {
+    if(typeof getCurrentUser() === "undefined"){
+      //User is already not logged in
+    }else{
+      localStorage.removeItem("jwtToken");
+    }
   }
 
   render() {
@@ -35,7 +39,6 @@ class Navbar extends Component {
                   ? "item disabled-link"
                   : "")
               }
-              onClick={this.signOutUser}
             >
               Alerts
               <style
@@ -44,7 +47,7 @@ class Navbar extends Component {
                 }}
               />
             </Link>
-            <Link to="/Login" className="item">
+            <Link to="/Login" className="item" onClick={this.signOutUser}>
               {typeof getCurrentUser() === "undefined" ? "Log in" : "Log out"}
               {/* {if(typeof getCurrentUser() === 'undefined'){}}
               Log In */}
