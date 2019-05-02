@@ -22,6 +22,7 @@ router.post(
           console.log(
             "Endpoint already exists when we think it shouldn't at this point"
           );
+          return res.status(451).json("");
         } else {
           console.log("Endpoint doesn't exist yet, this is GOOD");
           endPointToInsert = new Endpoint({
@@ -41,15 +42,17 @@ router.post(
                       .then()
                       .catch(err => console.log(`Well we tried... ${err}`));
                   } else {
-                    console.log("User wasn't found, you're bad Aleks");
+                    console.log(`User wasn't found, you're bad Aleks: ${err}`);
+                    return res.status(451);
                   }
                 })
                 .catch(err => {
-                  console.log("Error at lines 35-36");
-                  console.log(err);
+                  console.log(`Error at lines 35-36: ${err}`);
+                  return res.status(451);
                 });
             } else {
-              console.log("Endpoint creation failed at 29-30");
+              console.log(`Endpoint creation failed at 29-30: ${err}`);
+              return res.status(451);
             }
           });
         }

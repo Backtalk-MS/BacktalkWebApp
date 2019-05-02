@@ -111,6 +111,8 @@ router.post(
 // @route   POST api/models/:model_id
 // @desc    Submit comment to predictive webservice
 // @access  Private
+
+//TODO: Need to add a check for threshold reached against any alerts for that model
 router.post(
   "/:model_id",
   passport.authenticate("jwt", { session: false }),

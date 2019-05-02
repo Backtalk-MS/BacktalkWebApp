@@ -69,7 +69,11 @@ router.post("/login", (req, res) => {
           .then(Match => {
             if (Match) {
               //Create the json web token payload to for persistent validation
-              const payload = { id: user.id, handle: user.handle };
+              const payload = {
+                id: user.id,
+                handle: user.handle,
+                endpoints: user.endpoints
+              };
               //Sign json web token
               jwt.sign(
                 payload,

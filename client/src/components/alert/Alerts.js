@@ -1,15 +1,11 @@
 import React, { Component } from "react";
 import { getCurrentUser } from "../../actions/authActions";
 import axios from "axios";
-import { isUndefined } from "util";
 
 class Alerts extends Component {
   constructor() {
     super();
-    this.loggedInUser = Object(getCurrentUser());
-    this.endpointList = this.loggedInUser.endpoints;
-    this.sel1 = null;
-    console.log("Endpoint list: " + this.endpointList);
+    this.loggedInUser = getCurrentUser();
     this.state = {
       user: this.loggedInUser.handle,
       endpoint: "",
@@ -23,26 +19,27 @@ class Alerts extends Component {
   //Alerts the children of a given select DOM element
   //@Parameters: options: list of strings, stateAttribute: what stateAttribute you'll be setting
   //@Return: select: document element of type 'select' that is filled with the options contents
-  getSelectOptions(selectList, options, stateAttribute) {
-    if (Array.isArray(options)) {
+  setSelectOptions(selectList, options, stateAttribute) {
+    if (!Array.isArray(options)) {
       console.log(
         "Function 'getSelectOptions' received wrong type arguments. 'options' was not of type Array"
       );
       return;
-    } else if (typeof selectList !== null) {
+    } else if (typeof selectList === null) {
       console.log("selectList is null.");
+      return;
     }
-    //Add the first option for presentation purposes
-    var option = document.createElement("option");
-    option.value = "";
-    option.text = "- SELECT " + String(stateAttribute).toLocaleUpperCase + " -";
-    selectList.appendChild(option);
-    //Add all elements in options
-    for (var i = 0; i < Array(options).length; i++) {
-      var newOption = document.createElement("option");
-      newOption.value = Array(options)[i];
-      newOption.text = String(Array(options)[i]);
-      selectList.appendChild(newOption);
+
+    if (selectList.length !== Array(options).length + 1) {
+      //Only does it once
+      for (var i = 0; i < Array(options).length; i++) {
+        var newOption = document.createElement("option");
+        newOption.value = Array(options)[i];
+        newOption.text = stateAttribute /*String(Array(options)[i])*/;
+        selectList.appendChild(newOption);
+      }
+    } else {
+      console.log("Didn't need to add the options. They already exist.");
     }
   }
 
@@ -80,9 +77,21 @@ class Alerts extends Component {
       });
   };
 
+  updateSelect = event => {
+    var sel1, sel2;
+    if (event.target.name === "endpoint") {
+      sel1 = event.target;
+      this.setSelectOptions(sel1, this.loggedInUser.endpoints, "endpoint");
+    } else if (event.target.name === "selectedModel") {
+      sel2 = event.target;
+      this.setSelectOptions(sel2, this.loggedInUser.endpoints.models, "model");
+    } else {
+      console.log("Not used on something worth while...");
+    }
+  };
+
   handleChange = event => {
-    console.log(event.target);
-    this.this.setState({
+    this.setState({
       [event.target.name]: event.target.value
     });
   };
@@ -102,12 +111,16 @@ class Alerts extends Component {
               value={this.state.endpoint}
               name="endpoint"
               id="sel1"
+              onClick={this.updateSelect}
               onChange={this.handleChange}
-            />
+            >
+              <option value="">- Select an Endpoint -</option>
+            </select>
 
             <select
               value={this.state.selectedModel}
               name="selectedModel"
+              onClick={this.updateSelect}
               onChange={this.handleChange}
               id="sel2"
             >

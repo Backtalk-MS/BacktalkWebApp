@@ -71,6 +71,16 @@ class Train extends Component {
           </b>
           <br />
         </div>
+        <div className="ui main text container">
+          <p>
+            <b>
+              In the model architecture that's being loaded from the JSON, the
+              number of nodes in the final layer needs to be equal to the number
+              of unique labels that the model is being trained on.
+            </b>
+          </p>
+        </div>
+
         <form onSubmit={this.onSubmit}>
           <input
             type="text"
