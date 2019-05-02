@@ -14,7 +14,7 @@ router.post(
   "/",
   passport.authenticate("jwt", { session: false }, (req, res) => {
     const errors = {};
-    console.log(req);
+    console.log(req.body);
     console.log(res);
     alertToInsert = {
       endpoint: req.body.endpoint, //have to find endpoint
