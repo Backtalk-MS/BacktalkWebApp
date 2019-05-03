@@ -5,6 +5,8 @@ const router = require("express").Router(),
   upload = require("../../configuration/storage"),
   fs = require("fs"),
   fileStoragePath = require("../../configuration/storage"),
+  path = require("path"),
+  { spawn } = require("child_process"),
   FormData = require("form-data");
 
 const Endpoints = require("../../models/Endpoint");
@@ -128,6 +130,55 @@ router.post(
       .catch(error => {
         console.log(`ERROR In api/models/labels with error: ${error}`);
       });
+  }
+);
+
+let runPy = rawText =>
+  new Promise(function(success, nosuccess) {
+    const { spawn } = require("child_process");
+    const pyprog = spawn("py", ["./sentiment.py", rawText.toString()]);
+
+    pyprog.stdout.on("data", function(data) {
+      success(data);
+    });
+
+    pyprog.stderr.on("data", data => {
+      nosuccess(data);
+    });
+  });
+// @route   POST api/models/predict/sentiment
+// @desc    Submit comment to predictive webservice
+// @access  Private
+router.post(
+  "/predict/sentiment",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const rawText = req.body.rawText;
+    runPy(rawText)
+      .then(function(responseFromRunPy) {
+        console.log(`Response from RunPy:${responseFromRunPy}`);
+        var float32 = new Float32Array(1);
+        float32[0] = responseFromRunPy;
+        res.status(200).json({ msg: float32[0] });
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(451).json({
+          msg: "somethings went poorly in the POST /predict/sentiment route"
+        });
+      });
+    // var formData = new FormData();
+    // formData.append("rawText", req.body.rawText);
+    // ///formData.append("model_ID", req.body.model_id);
+    // formData.append("type", req.body.type);
+    // formData.submit("http://localhost:5000/predict/sentiment", (err, resp) => {
+    //   if (err) {
+    //     console.log(`formdata.submit error: ${err}`);
+    //   } else {
+    //     console.log(resp.body);
+    //     res.json(resp.json);
+    //   }
+    // });
   }
 );
 

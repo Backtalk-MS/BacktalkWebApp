@@ -9,6 +9,70 @@ const User = require("../../models/User");
 //Test route
 router.get("/index", (req, res) => res.json({ message: "Hope you see this" }));
 
+//get all endpoints for a user
+router.get(
+  "/all",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    User.findById(req.user.id)
+      .then(foundUser => {
+        var returnedEndpoints = [];
+        if (!foundUser) {
+          console.log("Couldn't find user in endpoints.js in /all route");
+          res.status(400).json({ msg: "Couldn't find user in endpoints.js" });
+        } else {
+          const endpoints = foundUser.endpoints;
+          var returnedEndpoints;
+          console.log(endpoints);
+          Promise.all(
+            endpoints.forEach(endpoint => {
+              console.log("In forEach");
+              Endpoint.findById(endpoint._id)
+                .then(foundEndPoint => {
+                  console.log("in then");
+                  if (!foundEndPoint) {
+                    console.log("Well this shouldn't happen");
+                    res.status(666);
+                  } else {
+                    returnedEndpoints.push({
+                      endpointid: endpoint,
+                      endpointname: foundEndPoint.name
+                    });
+                    console.log(returnedEndpoints);
+                  }
+                })
+                .catch(err => console.log(err));
+            })
+          ).then(() => {
+            res.status(200).json({ endpointsReturned: returnedEndpoints });
+          });
+
+          // endpoints.map(endpoint => {
+          //   console.log("In the map, should happen twice");
+          //   Endpoint.findById(endpoint._id)
+          //     .then(foundEndPoint => {
+          //       console.log("in then");
+          //       if (!foundEndPoint) {
+          //         console.log("Well this shouldn't happen");
+          //         res.status(666);
+          //       } else {
+          //         returnedEndpoints.push({
+          //           endpointid: endpoint,
+          //           endpointname: foundEndPoint.name
+          //         });
+          //       }
+          //     })
+          //     .catch(err => console.log(err));
+          // });
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        console.log("User couldn't be found....");
+      });
+  }
+);
+
 //get endpoint information
 router.post(
   "/getModels",
