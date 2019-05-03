@@ -44,6 +44,7 @@ class Alerts extends Component {
     }
 
     console.log("Submitting alert...");
+    alert("Alert created ot selected software group.");
     axios
       .post("/api/alerts", {
         endpoint: this.state.endpoint,
@@ -55,7 +56,6 @@ class Alerts extends Component {
       .then(resp => {
         const result = resp.data;
         console.log(result);
-        alert("Created alert for chosen Software group.");
       })
       .catch(err => {
         console.log("This being called before button press is scarry");
@@ -152,7 +152,7 @@ class Alerts extends Component {
               onClick={this.updateSelect}
               onChange={this.handleChange}
             >
-              <option value="">- Select a Software Group -</option>
+              <option value="">- Select an Software Group -</option>
             </select>
 
             <select
