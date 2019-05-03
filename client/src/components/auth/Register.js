@@ -42,46 +42,51 @@ class Register extends Component {
     // const { user } = this.props.auth;
     return (
       <div className="ui container">
-        <br />
-        <br />
-        <br />
-        <form className="ui form" onSubmit={this.onSubmit}>
-          <div className="field">
-            <label>Nickname</label>
-            <input
-              type="text"
-              name="handle"
-              value={this.state.handle}
-              onChange={this.onChange}
-              placeholder="StackOverflowMaster"
-            />
+      
+      <div class="ui middle aligned center aligned grid">
+          <div class="column">
+              <h2 class="ui image header">
+              <br/><br/><br/><br/>
+                <div class="content">
+                  Register an account
+                </div>
+              </h2>
+              <form classname="ui large form" onSubmit={this.onSubmit}>
+                <div class="ui stacked secondary segment">
+                                
+                <div class="field">
+                    <div class="ui left icon input">
+                      <i class="user icon"></i>
+                      <input type="text" name="handle" value={this.state.handle} onChange={this.onChange} placeholder="Nickname" />
+                    </div>
+                  </div>
+
+                  <br/>
+
+                  <div class="field">
+                    <div class="ui left icon input">
+                      <i class="envelope open outline icon"></i>
+                      <input type="email" name="email" value={this.state.email} onChange={this.onChange} placeholder="E-mail address" />
+                    </div>
+                  </div>
+
+                  <br/>
+
+                  <div class="field">
+                    <div class="ui left icon input">
+                      <i class="lock icon"></i>
+                      <input type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.onChange}/>
+                    </div>
+                  </div>
+
+                  <br/>
+
+                <div class="ui fluid large teal submit button" type="submit">Submit</div>
+              </div>
+              <br/>
+            </form>
           </div>
-          <div className="field">
-            <label>Email</label>
-            <input
-              type="email"
-              name="email"
-              value={this.state.email}
-              onChange={this.onChange}
-              placeholder="abc@alphabet.com"
-            />
-          </div>
-          <div className="field">
-            <label>Password</label>
-            <input
-              type="password"
-              name="password"
-              value={this.state.password}
-              onChange={this.onChange}
-              placeholder="password123"
-            />
-          </div>
-          <button className="ui button" type="submit">
-            Submit
-          </button>
-        </form>
-        <br />
-        <br />
+      </div>
       </div>
     );
   }

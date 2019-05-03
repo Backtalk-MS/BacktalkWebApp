@@ -24,28 +24,16 @@ class Landing extends Component {
           <Grid.Row>
             <Grid.Column width={8}>
               <Header as="h3" style={{ fontSize: "2em" }}>
-                We Help Companies and Companions
+              BackTalk
               </Header>
               <p style={{ fontSize: "1.33em" }}>
-                We can give your company superpowers to do things that they never
-                thought possible. Let us delight your customers and empower your
-                needs... through pure data analytics.
-              </p>
-              <Header as="h3" style={{ fontSize: "2em" }}>
-                We Make Bananas That Can Dance
-              </Header>
-              <p style={{ fontSize: "1.33em" }}>
-                Yes that's right, you thought it was the stuff of dreams, but even
-                bananas can be bioengineered.
+              BackTalk aims to provide clients with a way to 
+              quickly manage and visualize incoming user data
+               such as user reviews and complaints through a user-friendly GUI. ​
               </p>
             </Grid.Column>
             <Grid.Column floated="right" width={6}>
-              <Image
-                bordered
-                rounded
-                size="large"
-                src="/images/wireframe/white-image.png"
-              />
+            <img src={require('../images/biglogo.png')} />
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
@@ -93,27 +81,6 @@ class Landing extends Component {
           </p>
           <Button as="a" size="large">
             Read More
-          </Button>
-  
-          <Divider
-            as="h4"
-            className="header"
-            horizontal
-            style={{ margin: "3em 0em", textTransform: "uppercase" }}
-          >
-            <a href="#root">Case Studies</a>
-          </Divider>
-  
-          <Header as="h3" style={{ fontSize: "2em" }}>
-            Did We Tell You About Our Bananas?
-          </Header>
-          <p style={{ fontSize: "1.33em" }}>
-            Yes I know you probably disregarded the earlier boasts as non-sequitur
-            filler content, but it's really true. It took years of gene splicing
-            and combinatory DNA research, but our bananas can really dance.
-          </p>
-          <Button as="a" size="large">
-            I'm Still Quite Interested
           </Button>
         </Container>
       </Segment>
