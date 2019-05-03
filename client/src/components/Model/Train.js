@@ -8,7 +8,6 @@ class Train extends Component {
       user: "MyUserName", //Retreive from bearer token
       endpoint: "ExistingEndpoint", //selected from a list after retreiving it from user's existing endpoints
       modelName: "NewModelName", //new model name to add to the endpoint
-      labels: ["label1", "label2", "label3"],
       dataset: {},
       errors: {},
       description: "",

@@ -33,6 +33,7 @@
     "multer": "^1.4.1",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
+    "react-popupbox": "^2.0.8",
     "uuid": "^3.3.2",
     "validator": "^10.11.0"
   },

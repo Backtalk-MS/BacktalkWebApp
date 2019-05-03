@@ -11,6 +11,19 @@ const ModelSchema = new Schema({
     type: String,
     required: true
   },
+  labels: [
+    {
+      type: String,
+      required: true
+    }
+  ],
+  endpoints: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "endpoints",
+      required: true
+    }
+  ],
   predictiveResults: [
     {
       comment: {

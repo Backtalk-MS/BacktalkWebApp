@@ -14,11 +14,11 @@ class Predict extends Component {
       predictionResult: "Microsoft office",
       chartDataPoints: {},
       chartDatagram: {
-        labels: ["edge", "excel"],
+        labels: ["category", "sentiment", "Custom Model1"],
         datasets: [
           {
-            label: "Category Frequency",
-            data: [6, 8]
+            label: "Alert Frequency",
+            data: [1, 3, 6]
           }
         ]
       }
@@ -99,9 +99,20 @@ class Predict extends Component {
               placeholder="I love microsoft, I have no complaints"
             />
           </div>
-          <button className="ui button" type="submit">
-            Predict
-          </button>
+          <div className="ui simple compacted menu" align="center">
+            <select
+              value={this.state.endpoint}
+              name="endpoint"
+              id="sel1"
+              onClick={this.updateSelect}
+              onChange={this.handleChange}
+            >
+              <option value="">- Select an Endpoint -</option>
+            </select>
+            <button className="ui button" type="submit">
+              Predict
+            </button>
+          </div>
         </form>
         <div className="ui visible message">
           <p>{this.state.predictionResult}</p>
@@ -109,7 +120,7 @@ class Predict extends Component {
         <br />
         <br />
         <div className="Chart">
-          <Bar
+          <Pie
             data={this.state.chartDatagram}
             options={{
               maintainAspectRatio: true,
