@@ -10,6 +10,22 @@ const Endpoint = require("../../models/Endpoint");
 //Test route
 router.get("/index", (req, res) => res.json({ message: "Hope you see this" }));
 
+router.post("/get", (req, res) => {
+  console.log(req);
+  Alert.findOne({ endpoint: req.body.endpoint })
+    .then(foundAlert => {
+      if (foundAlert) {
+        console.log("Found alert with appropriate endpoint");
+        return res.json(foundAlert.threshold);
+      } else {
+        console.log("Alert not found....");
+      }
+    })
+    .catch(error => {
+      console.log(`ERROR: /api/alerts/get with error: ${error}`);
+    });
+});
+
 //Inserting new alert
 router.post(
   "/",

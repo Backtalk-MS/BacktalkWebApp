@@ -11,13 +11,14 @@ class Predict extends Component {
     super();
     this.loggedInUser = getCurrentUser();
     this.state = {
-      radioBoxSelected: '',
+      radioBoxSelected: "",
       commentToPredict: "test",
       errors: {},
       predictionResult: "Microsoft office",
       modelType: "feedback",
       endpoint: "",
       chartDataPoints: {},
+      countDown: 0,
       chartDatagram: {
         labels: ["category", "sentiment", "Custom Model1"],
         datasets: [
@@ -45,7 +46,7 @@ class Predict extends Component {
     /*console.log(
       "name: " + event.target.name + ", value: " + event.target.value
     );*/
-    if(event.target.name === 'modelType'){
+    if (event.target.name === "modelType") {
       this.state.radioBoxSelected = event.target.value;
       console.log(`radio value selected: ${event.target.value}`);
     }
@@ -57,57 +58,84 @@ class Predict extends Component {
 
   onSubmit = event => {
     event.preventDefault();
-    if(this.state.radioBoxSelected === 'feedback' || this.state.radioBoxSelected === 'review'){
+    if (
+      this.state.radioBoxSelected === "feedback" ||
+      this.state.radioBoxSelected === "review"
+    ) {
       console.log("We expected this");
-      axios.post('/api/models/predict/sentiment',{rawText:this.state.commentToPredict})
-      .then(resp => {
-        console.log(resp.data);
-        this.setState({predictionResult: `Sentiment: ${resp.data.msg}`});
-        // this.state.predictionResult = resp.data.msg;
-      })
-    }else{
-      console.log(typeof getCurrentUser() === "undefined");
-    console.log(this.state.endpoint);
-    axios
-      .post("/api/models/predict", {
-        comment: this.state.commentToPredict,
-        modelType: this.state.modelType,
-        endpointId: this.state.endpoint
-      })
-      .then(resp => {
-        const result = resp.data;
-        var data = { ...this.state.chartDataPoints };
-        this.setState({ predictionResult: resp.data });
-        if (!(result in this.state.chartDataPoints)) {
-          data[result] = 1;
-          this.setState({ chartDataPoints: data });
-        } else {
-          data[result] = data[result] + 1;
-          this.setState({ chartDataPoints: data });
-        }
-        const keys_array = Object.keys(this.state.chartDataPoints);
-        console.log(keys_array);
-        const values_array = Object.keys(this.state.chartDataPoints).map(
-          val => this.state.chartDataPoints[val]
-        );
-        console.log(values_array);
-        const dataGramCopy = update(this.state.chartDatagram, {
-          labels: { $set: Object.keys(this.state.chartDataPoints) },
-          datasets: {
-            $set: [{ label: "Category Frequency", data: values_array }]
-          }
+      var sentiment = 100000;
+      axios
+        .post("/api/models/predict/sentiment", {
+          rawText: this.state.commentToPredict
+        })
+        .then(resp => {
+          console.log("Received: " + resp.data);
+          this.setState({ predictionResult: `Sentiment: ${resp.data.msg}` });
+          // this.state.predictionResult = resp.data.msg;
+          sentiment = resp.data.msg;
+        })
+        .catch(error => {
+          console.log(`ERROR: in button: ${error}`);
         });
 
-        // var tempDataGram = { ...this.state.chartDatagram };
-        // tempDataGram.labels = Object.keys(this.state.chartDataPoints);
-        // tempDataGram.datasets = {
-        //   label: "Category Frequency",
-        //   data: Object.values(this.state.chartDataPoints)
-        // };
-        console.log(dataGramCopy);
-        this.setState({ chartDatagram: dataGramCopy });
-      })
-      .catch(err => console.log(err));
+      console.log(this.state.endpoint);
+      axios
+        .post("/api/alerts/get", { endpoint: this.state.endpoint })
+        .then(foundAlert => {
+          if (sentiment <= 0.6 && sentiment >= 0.4) {
+            //only increment in range
+            this.state.countDown = this.state.countDown + 1;
+          }
+          console.log(this.state.countDown);
+          console.log(foundAlert.data);
+          if (foundAlert.data <= this.state.countDown) {
+            alert("Threshold reached!");
+            this.state.countDown = 0;
+          }
+        });
+    } else {
+      console.log(typeof getCurrentUser() === "undefined");
+      console.log(this.state.endpoint);
+      axios
+        .post("/api/models/predict", {
+          comment: this.state.commentToPredict,
+          modelType: this.state.modelType,
+          endpointId: this.state.endpoint
+        })
+        .then(resp => {
+          const result = resp.data;
+          var data = { ...this.state.chartDataPoints };
+          this.setState({ predictionResult: resp.data });
+          if (!(result in this.state.chartDataPoints)) {
+            data[result] = 1;
+            this.setState({ chartDataPoints: data });
+          } else {
+            data[result] = data[result] + 1;
+            this.setState({ chartDataPoints: data });
+          }
+          const keys_array = Object.keys(this.state.chartDataPoints);
+          console.log(keys_array);
+          const values_array = Object.keys(this.state.chartDataPoints).map(
+            val => this.state.chartDataPoints[val]
+          );
+          console.log(values_array);
+          const dataGramCopy = update(this.state.chartDatagram, {
+            labels: { $set: Object.keys(this.state.chartDataPoints) },
+            datasets: {
+              $set: [{ label: "Category Frequency", data: values_array }]
+            }
+          });
+
+          // var tempDataGram = { ...this.state.chartDatagram };
+          // tempDataGram.labels = Object.keys(this.state.chartDataPoints);
+          // tempDataGram.datasets = {
+          //   label: "Category Frequency",
+          //   data: Object.values(this.state.chartDataPoints)
+          // };
+          console.log(dataGramCopy);
+          this.setState({ chartDatagram: dataGramCopy });
+        })
+        .catch(err => console.log(err));
     }
   };
 
@@ -203,6 +231,7 @@ class Predict extends Component {
             }}
           />
         </div>
+        <h1>Endpoint: {this.state.endpoint}</h1>
       </div>
     );
   }

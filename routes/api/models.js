@@ -21,6 +21,12 @@ router.get("/test", (req, res) =>
   res.json({ message: "In the models route, hope we see this too...." })
 );
 
+router.get("/getModel", (req, res) => {
+  Model.findOne({ _id: req.body.modelID }).then(foundModel => {
+    return res.json(foundModel.alerts);
+  });
+});
+
 // @route   POST api/models
 // @desc    Add model to be trained
 // @access  Private
