@@ -3,6 +3,7 @@ const router = require("express").Router(),
   passport = require("passport"),
   axios = require("axios"),
   upload = require("../../configuration/storage");
+fs = require("fs");
 
 //IMPORT FORM VALIDATION vvvvvv//
 
@@ -104,7 +105,10 @@ router.post(
     upload.single("selectedFile")
   ],
   (req, res) => {
-    res.json({ msg: "Well it didn't immediately crash" });
+    //Original file name: req.file.originalname
+    //filename on filesystem: req.file.filename
+    //Once client uploads a file here we dispatch it to the training server
+    res.json({ msg: req.file });
   }
 );
 
