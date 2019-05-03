@@ -131,7 +131,7 @@ router.post(
   }
 );
 
-let runPy = rawText =>
+let runPySentiment = rawText =>
   new Promise(function(success, nosuccess) {
     const { spawn } = require("child_process");
     const pyprog = spawn("py", ["./sentiment.py", rawText.toString()]);
@@ -152,8 +152,9 @@ router.post(
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const rawText = req.body.rawText;
-    runPy(rawText)
+    runPySentiment(rawText)
       .then(function(responseFromRunPy) {
+        console.log(rawText);
         console.log(`Response from RunPy:${responseFromRunPy}`);
         var float32 = new Float32Array(1);
         float32[0] = responseFromRunPy;
@@ -179,6 +180,20 @@ router.post(
     // });
   }
 );
+
+let runPyCategory = rawText =>
+  new Promise(function(success, nosuccess) {
+    const { spawn } = require("child_process");
+    const pyprog = spawn("py", ["./category.py", rawText.toString()]);
+
+    pyprog.stdout.on("data", function(data) {
+      success(data);
+    });
+
+    pyprog.stderr.on("data", data => {
+      nosuccess(data);
+    });
+  });
 
 // @route   POST api/models/train
 // @desc    Submit comment to predictive webservice
