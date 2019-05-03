@@ -1,0 +1,5 @@
+@media (min-height: 10vh) {
+    .ui.sticky-footer { /* Increased specificity for SO snippet priority */
+        margin-top:auto
+    }
+  }

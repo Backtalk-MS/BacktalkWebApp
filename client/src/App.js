@@ -4,13 +4,16 @@ import { Provider } from "react-redux";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import Landing from "./components/layout/Landing";
+import Demo from "./components/Model/Demo";
 import "./App.css";
-import Register from "./components/auth/Register";
+import About from "./components/about/About";
+import Register from "./components/auth/oldRegister";
 import Login from "./components/auth/Login";
 import Predict from "./components/Model/Predict";
 import Train from "./components/Model/Train";
 import Account from "./components/auth/Account";
 import Alerts from "./components/alert/Alerts";
+import Visualize from "./components/charts/visualize";
 import Endpoints from "./components/endpoint/Endpoints";
 import store from "./store";
 import jwt_decode from "jwt-decode";
@@ -31,18 +34,23 @@ class App extends Component {
       <Provider store={store}>
         <Router>
           <div className="App">
+          <div className="sticky-wrap">
             <Navbar />
             <Route exact path="/" component={Landing} />
             <br />
             <br />
             <div className="container">
+              <Route exact path="/Demo" component={Demo} />
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
+              <Route exact path="/visualize" component={Visualize} />
               <Route exact path="/models/predict" component={Predict} />
+              <Route exact path="/about" component={About} />
               <Route exact path="/account" component={Account} />
               <Route exact path="/alerts" component={Alerts} />
               <Route exact path="/models/train" component={Train} />
               <Route exact path="/endpoints" component={Endpoints} />
+            </div>
             </div>
             <Footer />
           </div>
