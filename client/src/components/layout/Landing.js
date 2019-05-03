@@ -21,9 +21,9 @@ class Landing extends Component {
     return (
       <Container>
       <Segment style={{ padding: "8em 0em" }} vertical>
-        <Grid container stackable verticalAlign="middle">
+        <Grid container stackable className="ui center aligned grid">
           <Grid.Row>
-            <Grid.Column width={8}>
+            <Grid.Column width={10}>
               <Header as="h3" style={{ fontSize: "2em" }}>
               BackTalk
               </Header>
@@ -36,7 +36,7 @@ class Landing extends Component {
               <Link to= "/Demo"><Button size="huge" textAlign="center">Check Them Out</Button></Link>
             </Grid.Column>
             <Grid.Column floated="right" width={6}>
-            <img src={require('../images/biglogo.png')} />
+            <img className="small" src={require('../images/biglogo.png')} />
             </Grid.Column>
           </Grid.Row>
         </Grid>
@@ -44,16 +44,18 @@ class Landing extends Component {
       <Segment style={{ padding: "0em" }} vertical>
         <Grid celled="internally" columns="equal" stackable>
           <Grid.Row textAlign="center">
-            <Grid.Column style={{ paddingBottom: "5em", paddingTop: "5em" }}>
-              <Header as="h3" style={{ fontSize: "2em" }}>
-                "What a Company"
+            <Grid.Column style={{ paddingBottom: "5em", paddingTop: "5em", padding: "5em" }}>
+              <img src={require('../images/accuracypicture.png')}/>
+              <Header as="h3" style={{ fontSize: "1.33em" }}>
+                87% Accuracy over 4 main categories
               </Header>
-              <p style={{ fontSize: "1.33em" }}>
-                That is what they all say about us
+              <p style={{ fontSize: "1.6em" }}>
+                Over our early iterations, we achieved categorical accuracy of 87% when reading in data
               </p>
             </Grid.Column>
-            <Grid.Column style={{ paddingBottom: "5em", paddingTop: "5em" }}>
-              <Header as="h3" style={{ fontSize: "2em" }}>
+            <Grid.Column style={{ paddingBottom: "5em", paddingTop: "5em", padding: "5em"}}>
+              <img src={require('../images/systemarchitecture.png')}/>
+              <Header as="h3" style={{ fontSize: "1.6em" }} >
                 "I shouldn't have gone with their competitor."
               </Header>
               <p style={{ fontSize: "1.33em" }}>
