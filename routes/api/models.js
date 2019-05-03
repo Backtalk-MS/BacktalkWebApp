@@ -201,7 +201,7 @@ router.post(
 // @route   POST api/models/:model_id
 // @desc    Submit comment to predictive webservice
 // @access  Private
-
+// We assume the comment will be submitted via req.body.comment
 //TODO: Need to add a check for threshold reached against any alerts for that model
 router.post(
   "/:model_id",
@@ -219,26 +219,12 @@ router.post(
         return res.status(403).json(errors);
       } else {
         axios
-          .post(
-            model.postURL,
-            {
-              Inputs: {
-                input1: {
-                  ColumnNames: ["Category", "Subcategory", "Title", "Content"],
-                  Values: [[" ", " ", " ", req.body.comment]]
-                }
-              },
-              GlobalParameters: {}
-            },
-            {
-              headers: {
-                Authorization: model.apiKey,
-                "Content-Type": "application/json"
-              }
-            }
-          )
+          .post("http://localhost:5000/predict", {
+            modelDatabaseID: model.id,
+            rawComment: req.body.comment
+          })
           .then(response => {
-            const result = response.data.Results.output1.value.Values[0][0];
+            const result = response["result"];
             const predictionResult = { comment: req.body.comment, result };
             model.predictiveResults.unshift(predictionResult);
             model
@@ -256,5 +242,64 @@ router.post(
     });
   }
 );
+
+// // @route   POST api/models/:model_id
+// // @desc    Submit comment to predictive webservice
+// // @access  Private
+
+// //TODO: Need to add a check for threshold reached against any alerts for that model
+// router.post(
+//   "/:model_id",
+//   passport.authenticate("jwt", { session: false }),
+//   (req, res) => {
+//     const errors = {};
+//     Model.findById(req.params.model_id).then(model => {
+//       if (!model) {
+//         //couldn't find a model with that id
+//         errors.modelID = "No model with this model ID exists";
+//         return res.status(404).json(errors);
+//       } else if (model.user.toString() !== req.user.id) {
+//         errors.contentRequestedByInvalidUser =
+//           "Logged in user does not have ownership of this model";
+//         return res.status(403).json(errors);
+//       } else {
+//         axios
+//           .post(
+//             model.postURL,
+//             {
+//               Inputs: {
+//                 input1: {
+//                   ColumnNames: ["Category", "Subcategory", "Title", "Content"],
+//                   Values: [[" ", " ", " ", req.body.comment]]
+//                 }
+//               },
+//               GlobalParameters: {}
+//             },
+//             {
+//               headers: {
+//                 Authorization: model.apiKey,
+//                 "Content-Type": "application/json"
+//               }
+//             }
+//           )
+//           .then(response => {
+//             const result = response.data.Results.output1.value.Values[0][0];
+//             const predictionResult = { comment: req.body.comment, result };
+//             model.predictiveResults.unshift(predictionResult);
+//             model
+//               .save()
+//               .then()
+//               .catch(err =>
+//                 console.log(
+//                   `Error encountered during prediction result save: ${err}`
+//                 )
+//               );
+//             return res.json(result);
+//           })
+//           .catch(err => console.log(err));
+//       }
+//     });
+//   }
+// );
 
 module.exports = router;

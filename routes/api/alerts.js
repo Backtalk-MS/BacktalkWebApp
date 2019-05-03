@@ -37,6 +37,13 @@ router.post(
                 };
                 new Alert(alertToInsert) //store
                   .save()
+                  .then(savedAlert => {
+                    if (!savedAlert) {
+                      return res.status(418);
+                    } else {
+                      foundModel.alerts.unshift(savedAlert.id);
+                    }
+                  })
                   .catch(err => {
                     console.log(
                       `ERROR IN ALERT CREATION POST api/alerts: ${err}`

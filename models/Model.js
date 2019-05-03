@@ -44,7 +44,13 @@ const ModelSchema = new Schema({
   ready: {
     type: Boolean,
     default: false
-  }
+  },
+  alerts: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "alerts"
+    }
+  ]
 });
 
 module.exports = Model = mongoose.model("models", ModelSchema);
