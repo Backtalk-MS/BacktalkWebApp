@@ -55,11 +55,8 @@ class Landing extends Component {
             </Grid.Column>
             <Grid.Column style={{ paddingBottom: "5em", paddingTop: "5em", padding: "5em"}}>
               <img src={require('../images/systemarchitecture.png')}/>
-              <Header as="h3" style={{ fontSize: "1.6em" }} >
-                "I shouldn't have gone with their competitor."
-              </Header>
               <p style={{ fontSize: "1.33em" }}>
-                <b>Aleks</b> Data Analyst
+                <b>Overall Project Architecture</b>
               </p>
             </Grid.Column>
           </Grid.Row>
