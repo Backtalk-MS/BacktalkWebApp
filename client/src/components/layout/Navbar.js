@@ -65,7 +65,12 @@ class Navbar extends Component {
               Register
             </Link>
 
-            <Link to="/Demo" className="item">
+            <Link to="/Demo" className={
+                      "item " +
+                      (typeof getCurrentUser() === "undefined"
+                        ? "item disabled-link"
+                        : "")
+                    }>
               Demo
             </Link>
 

@@ -33,7 +33,7 @@ class App extends Component {
       <Provider store={store}>
         <Router>
           <div className="App">
-          <div class="sticky-wrap">
+          <div className="sticky-wrap">
             <Navbar />
             <Route exact path="/" component={Landing} />
             <br />

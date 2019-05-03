@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { loginuser } from "../../actions/authActions";
 import { Link } from "react-router-dom";
 import "./Login.css";
-import classnames from "classnames";
+
 
 
 class Login extends Component {
@@ -34,6 +34,7 @@ class Login extends Component {
   }
 
   onSubmit(event) {
+    console.log("hello");
     event.preventDefault();
     const userData = {
       email: this.state.email,
@@ -45,35 +46,35 @@ class Login extends Component {
   render() {
     const errors = this.state.errors;
     return (
-      <div classname="ui container">
-          <div class="ui middle aligned center aligned grid">
-            <div class="column">
-              <h2 class="ui image header">
+      <div className="ui container">
+          <div className="ui middle aligned center aligned grid">
+            <div className="column">
+              <h2 className="ui image header">
               <br/><br/><br/><br/>
-                <div class="content">
+                <div className="content">
                   Log-in to your account
                 </div>
               </h2>
-              <form classname="ui large form" onSubmit={this.onSubmit}>
-                <div class="ui stacked secondary segment">
-                  <div class="field">
-                    <div class="ui left icon input">
-                      <i class="user icon"></i>
+              <form className="ui large form" onSubmit={this.onSubmit}>
+                <div className="ui stacked secondary segment">
+                  <div className="field">
+                    <div className="ui left icon input">
+                      <i className="user icon"></i>
                       <input type="text" name="email" value={this.state.email} onChange={this.onChange} placeholder="E-mail address" />
                     </div>
                   </div>
                   <br/>
-                  <div class="field">
-                    <div class="ui left icon input">
-                      <i class="lock icon"></i>
+                  <div className="field">
+                    <div className="ui left icon input">
+                      <i className="lock icon"></i>
                       <input type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.onChange}/>
                     </div>
                   </div>
                   <br/>
-                  <div class="ui fluid large teal submit button" type="submit">Login</div>
+                  <button className="ui fluid large teal submit button" type="submit">Login</button>
                 </div>
               </form>
-              <div class="ui message">
+              <div className="ui message">
                 New to us? <a href="/Register">Register</a>
               </div>
             </div>

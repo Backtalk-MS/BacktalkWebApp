@@ -16,13 +16,13 @@ class Demo extends Component {
             <div class="center-screen">
             <Item.Group>
             <Item>
-            <Link to="/Predict" className="header item">
+            <Link to="/models/predict" className="header item">
             <button class="circular massive ui icon button">
                 <i class="cogs icon"></i>
             </button>       
             </Link>       
              <Item.Content>
-                <Link to="/Predict" className="header item">
+                <Link to="/models/predict" className="header item">
                 <Item.Header as='a'>Predict</Item.Header>
                 <Item.Description>
                   <p>Input a string and our server will tell you what category it belongs to</p>
@@ -32,13 +32,13 @@ class Demo extends Component {
             </Item>
 
             <Item>
-            <Link to="/Train" className="header item">
+            <Link to="/models/train" className="header item">
             <button class="circular massive ui icon button">
                 <i class="download icon"></i>
             </button>      
             </Link>   
             <Item.Content>
-                <Link to="/Train" className="header item">
+                <Link to="/models/train" className="header item">
                 <Item.Header as='a'>Train</Item.Header>
                 <Item.Description>
                   <p>Input a new string into the database to be apart of the training data</p>

@@ -29,6 +29,7 @@ class Register extends Component {
   }
 
   onSubmit(event) {
+    console.log("hello");
     event.preventDefault();
     const newUser = {
       handle: this.state.handle,
@@ -36,6 +37,7 @@ class Register extends Component {
       password: this.state.password
     };
     this.props.registeruser(newUser, this.props.history);
+
   }
 
   render() {
@@ -43,45 +45,45 @@ class Register extends Component {
     return (
       <div className="ui container">
       
-      <div class="ui middle aligned center aligned grid">
-          <div class="column">
-              <h2 class="ui image header">
+      <div className="ui middle aligned center aligned grid">
+          <div className="column">
+              <h2 className="ui image header">
               <br/><br/><br/><br/>
-                <div class="content">
+                <div className="content">
                   Register an account
                 </div>
               </h2>
-              <form classname="ui large form" onSubmit={this.onSubmit}>
-                <div class="ui stacked secondary segment">
+              <form className="ui large form" onSubmit={this.onSubmit}>
+                <div className="ui stacked secondary segment">
                                 
-                <div class="field">
-                    <div class="ui left icon input">
-                      <i class="user icon"></i>
+                <div className="field">
+                    <div className="ui left icon input">
+                      <i className="user icon"></i>
                       <input type="text" name="handle" value={this.state.handle} onChange={this.onChange} placeholder="Nickname" />
                     </div>
                   </div>
 
                   <br/>
 
-                  <div class="field">
-                    <div class="ui left icon input">
-                      <i class="envelope open outline icon"></i>
+                  <div className="field">
+                    <div className="ui left icon input">
+                      <i className="envelope open outline icon"></i>
                       <input type="email" name="email" value={this.state.email} onChange={this.onChange} placeholder="E-mail address" />
                     </div>
                   </div>
 
                   <br/>
 
-                  <div class="field">
-                    <div class="ui left icon input">
-                      <i class="lock icon"></i>
+                  <div className="field">
+                    <div className="ui left icon input">
+                      <i className="lock icon"></i>
                       <input type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.onChange}/>
                     </div>
                   </div>
 
                   <br/>
 
-                <div class="ui fluid large teal submit button" type="submit">Submit</div>
+                <button className="ui fluid large teal submit button" type="submit">Submit</button>
               </div>
               <br/>
             </form>

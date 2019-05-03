@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import {
   Button,
   Container,
@@ -32,7 +33,7 @@ class Landing extends Component {
               quickly manage and visualize incoming user data
                such as user reviews and complaints through a user-friendly GUI. ​
               </p>
-              <Button size="huge" textAlign="center">Check Them Out</Button>
+              <Link to= "/Demo"><Button size="huge" textAlign="center">Check Them Out</Button></Link>
             </Grid.Column>
             <Grid.Column floated="right" width={6}>
             <img src={require('../images/biglogo.png')} />
