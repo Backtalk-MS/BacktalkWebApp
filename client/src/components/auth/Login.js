@@ -59,7 +59,7 @@ class Login extends Component {
                 <div className="ui stacked secondary segment">
                   <div className="field">
                     <div className="ui left icon input">
-                      <i className="user icon"></i>
+                      <i className="envelope open outline icon"></i>
                       <input type="text" name="email" value={this.state.email} onChange={this.onChange} placeholder="E-mail address" />
                     </div>
                   </div>
