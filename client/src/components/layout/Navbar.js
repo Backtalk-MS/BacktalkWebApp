@@ -28,6 +28,9 @@ class Navbar extends Component {
           </Link>
           <div className="right menu">
             /
+            <Link to="/About" className="item">
+              About
+            </Link>
             <Link
               to="/Account"
               className={
@@ -40,7 +43,7 @@ class Navbar extends Component {
               Account
             </Link>
             <Link
-              to="/Alerts"
+              to="/Demo"
               className={
                 "item " +
                 (typeof getCurrentUser() === "undefined"
@@ -48,7 +51,7 @@ class Navbar extends Component {
                   : "")
               }
             >
-              Alerts
+              Demo
               <style
                 dangerouslySetInnerHTML={{
                   __html: `.disabled-link { pointer-events: none }`
@@ -63,66 +66,7 @@ class Navbar extends Component {
             <Link to="/Register" className="item">
               Register
             </Link>
-            <Link
-              to="/Endpoints"
-              className={
-                "item " +
-                (typeof getCurrentUser() === "undefined"
-                  ? "item disabled-link"
-                  : "")
-              }
-            >
-              Software Groups
-              <style
-                dangerouslySetInnerHTML={{
-                  __html: `.disabled-link { pointer-events: none }`
-                }}
-              />
-            </Link>
-            <div className="ui inverted compact menu">
-              <div className="ui simple dropdown item">
-                Models
-                <i className="dropdown icon" />
-                <div className="menu">
-                  <Link
-                    className={
-                      "item " +
-                      (typeof getCurrentUser() === "undefined"
-                        ? "item disabled-link"
-                        : "")
-                    }
-                    to="/models/predict"
-                  >
-                    Predict
-                    <style
-                      dangerouslySetInnerHTML={{
-                        __html: `.disabled-link { pointer-events: none }`
-                      }}
-                    />
-                  </Link>
-                  <Link
-                    className={
-                      "item " +
-                      (typeof getCurrentUser() === "undefined"
-                        ? "item disabled-link"
-                        : "")
-                    }
-                    to="/models/train"
-                  >
-                    Train
-                    <style
-                      dangerouslySetInnerHTML={{
-                        __html: `.disabled-link { pointer-events: none }`
-                      }}
-                    />
-                  </Link>
-                </div>
-              </div>
             </div>
-            {/* <Link to="Models" className="item">
-              Models
-            </Link> */}
-          </div>
         </div>
       </div>
     );

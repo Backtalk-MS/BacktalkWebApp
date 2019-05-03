@@ -29,6 +29,7 @@ class Register extends Component {
   }
 
   onSubmit(event) {
+    console.log("hello");
     event.preventDefault();
     const newUser = {
       handle: this.state.handle,
@@ -39,52 +40,58 @@ class Register extends Component {
     alert(
       "Thank you for registering " + this.state.handle + "! Let's get started."
     );
+
   }
 
   render() {
     // const { user } = this.props.auth;
     return (
       <div className="ui container">
-        <br />
-        <br />
-        <br />
-        <form className="ui form" onSubmit={this.onSubmit}>
-          <div className="field">
-            <label>Nickname</label>
-            <input
-              type="text"
-              name="handle"
-              value={this.state.handle}
-              onChange={this.onChange}
-              placeholder="StackOverflowMaster"
-            />
+      
+      <div className="ui middle aligned center aligned grid">
+          <div className="column">
+              <h2 className="ui image header">
+              <br/><br/><br/><br/>
+                <div className="content">
+                  Register an account
+                </div>
+              </h2>
+              <form className="ui large form" onSubmit={this.onSubmit}>
+                <div className="ui stacked secondary segment">
+                                
+                <div className="field">
+                    <div className="ui left icon input">
+                      <i className="user icon"></i>
+                      <input type="text" name="handle" value={this.state.handle} onChange={this.onChange} placeholder="Nickname" />
+                    </div>
+                  </div>
+
+                  <br/>
+
+                  <div className="field">
+                    <div className="ui left icon input">
+                      <i className="envelope open outline icon"></i>
+                      <input type="email" name="email" value={this.state.email} onChange={this.onChange} placeholder="E-mail address" />
+                    </div>
+                  </div>
+
+                  <br/>
+
+                  <div className="field">
+                    <div className="ui left icon input">
+                      <i className="lock icon"></i>
+                      <input type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.onChange}/>
+                    </div>
+                  </div>
+
+                  <br/>
+
+                <button className="ui fluid large teal submit button" type="submit">Submit</button>
+              </div>
+              <br/>
+            </form>
           </div>
-          <div className="field">
-            <label>Email</label>
-            <input
-              type="email"
-              name="email"
-              value={this.state.email}
-              onChange={this.onChange}
-              placeholder="abc@alphabet.com"
-            />
-          </div>
-          <div className="field">
-            <label>Password</label>
-            <input
-              type="password"
-              name="password"
-              value={this.state.password}
-              onChange={this.onChange}
-              placeholder="password123"
-            />
-          </div>
-          <button className="ui button" type="submit">
-            Submit
-          </button>
-        </form>
-        <br />
-        <br />
+      </div>
       </div>
     );
   }
