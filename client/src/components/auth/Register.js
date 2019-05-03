@@ -36,6 +36,7 @@ class Register extends Component {
       password: this.state.password
     };
     this.props.registeruser(newUser, this.props.history);
+    alert('Thank you for registering ' + this.state.handle + '! Let\'s get started.');
   }
 
   render() {
@@ -85,6 +86,7 @@ class Register extends Component {
       </div>
     );
   }
+
 }
 
 Register.propTypes = {

@@ -27,7 +27,7 @@ class Landing extends Component {
             charts for simple and easy analysis.  
           </p>
           <p>
-            To get started, create a profile by <strong><i><a href="http://truetelly.com"> registering </a></i></strong> and browse available models.
+            To get started, create a profile by <strong><i><a href="http://localhost:3000/Register"> registering </a></i></strong> and browse available models.
             BackTalk is currently hosted locally only with plans to obtain a MIT (open source)
             license in the near future.  
           </p>
