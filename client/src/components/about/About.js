@@ -20,7 +20,7 @@ class About extends Component {
             <div>
                 <div className="ui container">
                     <p>
-                        This is the account page. HELLOOOOOO!?
+                        This is the about page. HELLOOOOOO!?
                     </p>
                 </div>
             </div>

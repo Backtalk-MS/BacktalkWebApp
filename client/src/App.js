@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import Landing from "./components/layout/Landing";
+import Demo from "./components/Model/Demo";
 import "./App.css";
 import About from "./components/about/About";
 import Register from "./components/auth/Register";
@@ -38,6 +39,7 @@ class App extends Component {
             <br />
             <br />
             <div className="container">
+              <Route exact path="/Demo" component={Demo} />
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/models/predict" component={Predict} />

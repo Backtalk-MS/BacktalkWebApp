@@ -27,23 +27,19 @@ class Landing extends Component {
               BackTalk
               </Header>
               <p style={{ fontSize: "1.33em" }}>
+              
               BackTalk aims to provide clients with a way to 
               quickly manage and visualize incoming user data
                such as user reviews and complaints through a user-friendly GUI. ​
               </p>
+              <Button size="huge" textAlign="center">Check Them Out</Button>
             </Grid.Column>
             <Grid.Column floated="right" width={6}>
             <img src={require('../images/biglogo.png')} />
             </Grid.Column>
           </Grid.Row>
-          <Grid.Row>
-            <Grid.Column textAlign="center">
-              <Button size="huge">Check Them Out</Button>
-            </Grid.Column>
-          </Grid.Row>
         </Grid>
       </Segment>
-  
       <Segment style={{ padding: "0em" }} vertical>
         <Grid celled="internally" columns="equal" stackable>
           <Grid.Row textAlign="center">

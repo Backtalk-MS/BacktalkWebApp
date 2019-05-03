@@ -34,6 +34,8 @@ class Navbar extends Component {
             <Link to="/Account" className="item">
               Account
             </Link>
+
+            {/*
             <Link
               to="/Alerts"
               className={
@@ -50,14 +52,24 @@ class Navbar extends Component {
                 }}
               />
             </Link>
+            */}
+
             <Link to="/Login" className="item" onClick={this.signOutUser}>
               {typeof getCurrentUser() === "undefined" ? "Log in" : "Log out"}
               {/* {if(typeof getCurrentUser() === 'undefined'){}}
               Log In */}
             </Link>
+
+
             <Link to="/Register" className="item">
               Register
             </Link>
+
+            <Link to="/Demo" className="item">
+              Demo
+            </Link>
+
+              {/*
             <Link
               to="/Endpoints"
               className={
@@ -117,6 +129,7 @@ class Navbar extends Component {
             {/* <Link to="Models" className="item">
               Models
             </Link> */}
+            */}
           </div>
         </div>
       </div>
