@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { getCurrentUser } from "../../actions/authActions";
 import axios from "axios";
+import { setSelectOptions } from "../../utilities/componentTools";
 
 class Alerts extends Component {
   constructor() {
@@ -16,44 +17,6 @@ class Alerts extends Component {
       timeUnits: "hrs",
       errors: {}
     };
-  }
-
-  //Alerts the children of a given select DOM element
-  //@Parameters: options: list of strings, stateAttribute: what stateAttribute you'll be setting
-  //@Return: select: document element of type 'select' that is filled with the options contents
-  setSelectOptions(selectList, options, stateAttribute) {
-    if (!Array.isArray(options)) {
-      console.log(
-        "Function 'getSelectOptions' received wrong type arguments. 'options' was not of type Array"
-      );
-      return;
-    } else if (typeof selectList === null) {
-      console.log("selectList is null in Alerts.setSelectOptions()");
-      return;
-    }
-
-    console.log(options);
-    try {
-      if (selectList.length < options.length + 1) {
-        //This if throws exception when lenght ===0
-        //2 for the initial default models
-        //Only does it once
-        console.log("Adding options");
-        for (var i = 0; i < options.length; i++) {
-          var endpoint = options[i];
-          var newOption = document.createElement("option");
-          newOption.value = endpoint;
-          newOption.text = options[i] /*String(Array(options)[i])*/;
-          selectList.appendChild(newOption);
-        }
-      } else {
-        console.log("Didn't need to add the options. They already exist.");
-      }
-    } catch (error) {
-      console.log(
-        `ERROR: options is NULL in Alerts.setSelectOptions(): ${error}`
-      );
-    }
   }
 
   submitAlert = event => {
@@ -111,7 +74,7 @@ class Alerts extends Component {
         .then(resp => {
           const result = resp.data;
           console.log("Received data: " + result);
-          this.setSelectOptions(event.target, result, "modelName");
+          setSelectOptions(event.target, result, "modelName");
         });
     } else {
       console.log("First choose model.");
@@ -122,7 +85,7 @@ class Alerts extends Component {
     var sel1, sel2;
     if (event.target.name === "endpoint") {
       sel1 = event.target;
-      this.setSelectOptions(sel1, this.loggedInUser.endpoints, "endpoint");
+      setSelectOptions(sel1, this.loggedInUser.endpoints, "endpoint");
     } else if (event.target.name === "selectedModel") {
       sel2 = event.target;
       var options = this.loggedInUser.endpoints;
@@ -137,7 +100,7 @@ class Alerts extends Component {
           console.log("Models received.");
         });
       Array(options).concat(["Default Sentiment", "Default Category"]);
-      this.setSelectOptions(sel2, options, "model");
+      setSelectOptions(sel2, options, "model");
     } else {
       console.log("Not used on something worth while...");
     }

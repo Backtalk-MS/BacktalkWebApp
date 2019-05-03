@@ -99,9 +99,20 @@ class Predict extends Component {
               placeholder="I love microsoft, I have no complaints"
             />
           </div>
-          <button className="ui button" type="submit">
-            Predict
-          </button>
+          <div className="ui simple compacted menu" align="center">
+            <select
+              value={this.state.endpoint}
+              name="endpoint"
+              id="sel1"
+              onClick={this.updateSelect}
+              onChange={this.handleChange}
+            >
+              <option value="">- Select an Endpoint -</option>
+            </select>
+            <button className="ui button" type="submit">
+              Predict
+            </button>
+          </div>
         </form>
         <div className="ui visible message">
           <p>{this.state.predictionResult}</p>
