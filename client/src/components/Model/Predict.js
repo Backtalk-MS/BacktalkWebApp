@@ -11,6 +11,7 @@ class Predict extends Component {
     super();
     this.loggedInUser = getCurrentUser();
     this.state = {
+      radioBoxSelected: '',
       commentToPredict: "test",
       errors: {},
       predictionResult: "Microsoft office",
@@ -44,6 +45,10 @@ class Predict extends Component {
     /*console.log(
       "name: " + event.target.name + ", value: " + event.target.value
     );*/
+    if(event.target.name === 'modelType'){
+      this.state.radioBoxSelected = event.target.value;
+      console.log(`radio value selected: ${event.target.value}`);
+    }
     this.setState({ [event.target.name]: event.target.value });
     if (event.target.name === "endpoint") {
       this.state.endpoint = event.target.value;
@@ -52,7 +57,16 @@ class Predict extends Component {
 
   onSubmit = event => {
     event.preventDefault();
-    console.log(typeof getCurrentUser() === "undefined");
+    if(this.state.radioBoxSelected === 'feedback' || this.state.radioBoxSelected === 'review'){
+      console.log("We expected this");
+      axios.post('/api/models/predict/sentiment',{rawText:this.state.commentToPredict})
+      .then(resp => {
+        console.log(resp.data);
+        this.setState({predictionResult: `Sentiment: ${resp.data.msg}`});
+        // this.state.predictionResult = resp.data.msg;
+      })
+    }else{
+      console.log(typeof getCurrentUser() === "undefined");
     console.log(this.state.endpoint);
     axios
       .post("/api/models/predict", {
@@ -94,6 +108,7 @@ class Predict extends Component {
         this.setState({ chartDatagram: dataGramCopy });
       })
       .catch(err => console.log(err));
+    }
   };
 
   render() {
