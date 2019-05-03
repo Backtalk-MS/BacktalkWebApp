@@ -66,14 +66,30 @@ class Demo extends Component {
             <Item>
             <Link to="/SoftwareGroups" className="header item">
             <button class="circular massive ui icon button">
-                <i class="folder open icon"></i>
+                <i class="pencil alternative icon"></i>
             </button>
             </Link>
               <Item.Content>
                 <Link to="/SoftwareGroups" className="header item">
                 <Item.Header as='a'>Software Groups</Item.Header>
                 <Item.Description>
-                  <p>View all categories and their statistics</p>
+                  <p>Edit and view endpoints</p>
+                </Item.Description>
+                </Link>
+              </Item.Content>
+            </Item>
+
+            <Item>
+            <Link to="/Visualize" className="header item">
+            <button class="circular massive ui icon button">
+                <i class="folder open icon"></i>
+            </button>
+            </Link>
+              <Item.Content>
+                <Link to="/Visualize" className="header item">
+                <Item.Header as='a'>Visualize</Item.Header>
+                <Item.Description>
+                  <p>View categories and statistics</p>
                 </Item.Description>
                 </Link>
               </Item.Content>
