@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { loginuser } from "../../actions/authActions";
 import classnames from "classnames";
+import { Link } from "react-router-dom";
 
 class Login extends Component {
   constructor() {
@@ -18,7 +19,7 @@ class Login extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.auth.isAuthenticated) {
-      this.props.history.push("/dashboard");
+      this.props.history.push("/Account");
     }
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
