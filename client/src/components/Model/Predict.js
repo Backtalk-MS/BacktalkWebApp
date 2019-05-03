@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import linechart from "../charts/LineChart";
 import axios from "axios";
-import { Bar, Line, Pie, defaults } from "react-chartjs-2";
+import { Bar /*Line, Pie, defaults*/ } from "react-chartjs-2";
 import update from "immutability-helper";
 import { getCurrentUser } from "../../actions/authActions";
 
