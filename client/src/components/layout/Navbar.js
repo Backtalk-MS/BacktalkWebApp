@@ -17,18 +17,17 @@ class Navbar extends Component {
 
   render() {
     return (
-      <div className="ui fixed inverted menu pointing">
+      <div className="ui fixed inverted menu">
         <div className="ui container">
           <Link to="/" className="header item">
             {" "}
             BackTalk Demo{" "}
           </Link>
-          <Link to="/" className=" item">
+          <Link to="/" className="item">
             Home
           </Link>
           <div className="right menu">
             /
-<<<<<<< HEAD
             <Link
               to="/Account"
               className={
@@ -38,16 +37,8 @@ class Navbar extends Component {
                   : "")
               }
             >
-=======
-            <Link to="/About" className="item">
-              About Us
-            </Link>
-            <Link to="/Account" className="item">
->>>>>>> martin
               Account
             </Link>
-
-            {/*
             <Link
               to="/Alerts"
               className={
@@ -64,29 +55,14 @@ class Navbar extends Component {
                 }}
               />
             </Link>
-            */}
-
             <Link to="/Login" className="item" onClick={this.signOutUser}>
               {typeof getCurrentUser() === "undefined" ? "Log in" : "Log out"}
               {/* {if(typeof getCurrentUser() === 'undefined'){}}
               Log In */}
             </Link>
-
-
             <Link to="/Register" className="item">
               Register
             </Link>
-
-            <Link to="/Demo" className={
-                      "item " +
-                      (typeof getCurrentUser() === "undefined"
-                        ? "item disabled-link"
-                        : "")
-                    }>
-              Demo
-            </Link>
-
-              {/*
             <Link
               to="/Endpoints"
               className={
@@ -146,7 +122,6 @@ class Navbar extends Component {
             {/* <Link to="Models" className="item">
               Models
             </Link> */}
-            */}
           </div>
         </div>
       </div>

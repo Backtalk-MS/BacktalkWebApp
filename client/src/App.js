@@ -7,7 +7,7 @@ import Landing from "./components/layout/Landing";
 import Demo from "./components/Model/Demo";
 import "./App.css";
 import About from "./components/about/About";
-import Register from "./components/auth/oldRegister";
+import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import Predict from "./components/Model/Predict";
 import Train from "./components/Model/Train";
