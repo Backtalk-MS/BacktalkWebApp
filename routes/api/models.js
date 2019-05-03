@@ -107,15 +107,18 @@ router.post(
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const errors = {};
-    console.log("we made it!");
-
     Model.findOne({ name: req.body.name })
       .then(foundModel => {
         if (!foundModel) {
           console.log("Couldn't find model");
           return res.status(409).json("");
         } else {
-          console.log("Found model!");
+          console.log(
+            "Found model: " +
+              req.body.name +
+              "\nResponding with: " +
+              foundModel.labels
+          );
           return res.json(foundModel.labels);
         }
       })

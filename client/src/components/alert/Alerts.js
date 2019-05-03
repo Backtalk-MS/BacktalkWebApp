@@ -12,6 +12,8 @@ class Alerts extends Component {
       selectedModel: "",
       threshold: 0,
       label: "",
+      timespan: 0, //0 what
+      timeUnits: "hrs",
       errors: {}
     };
   }
@@ -26,23 +28,31 @@ class Alerts extends Component {
       );
       return;
     } else if (typeof selectList === null) {
-      console.log("selectList is null.");
+      console.log("selectList is null in Alerts.setSelectOptions()");
       return;
     }
 
-    if (selectList.length < Array(options).length + 1) {
-      //2 for the initial default models
-      //Only does it once
-      console.log("Adding options");
-      for (var i = 0; i < options.length; i++) {
-        var endpoint = options[i];
-        var newOption = document.createElement("option");
-        newOption.value = endpoint;
-        newOption.text = options[i] /*String(Array(options)[i])*/;
-        selectList.appendChild(newOption);
+    console.log(options);
+    try {
+      if (selectList.length < options.length + 1) {
+        //This if throws exception when lenght ===0
+        //2 for the initial default models
+        //Only does it once
+        console.log("Adding options");
+        for (var i = 0; i < options.length; i++) {
+          var endpoint = options[i];
+          var newOption = document.createElement("option");
+          newOption.value = endpoint;
+          newOption.text = options[i] /*String(Array(options)[i])*/;
+          selectList.appendChild(newOption);
+        }
+      } else {
+        console.log("Didn't need to add the options. They already exist.");
       }
-    } else {
-      console.log("Didn't need to add the options. They already exist.");
+    } catch (error) {
+      console.log(
+        `ERROR: options is NULL in Alerts.setSelectOptions(): ${error}`
+      );
     }
   }
 
@@ -65,6 +75,10 @@ class Alerts extends Component {
       console.log("Invalid threshold");
       return;
     }
+    if (this.state.timeUnits === "") {
+      console.log("Invalid timeUnits");
+      return;
+    }
 
     console.log("Submitting alert...");
     axios
@@ -73,7 +87,7 @@ class Alerts extends Component {
         model: this.state.selectedModel,
         threshold: this.state.threshold,
         label: this.state.label,
-        timespan: Date.now() //TODO: Need to add a way to add a time on the page
+        timespan: this.getAlertDate(this.state.timespan, this.state.timeUnits) //TODO: Need to add a way to add a time on the page
       })
       .then(resp => {
         const result = resp.data;
@@ -86,7 +100,6 @@ class Alerts extends Component {
 
   updateLabels = event => {
     if (this.state.selectedModel === "Default Sentiment") {
-      console.log("just set the ranges manually...");
       //Labels turn into number ranges
     } else if (this.state.selectedModel === "Default Category") {
       //Grab labels from model
@@ -97,6 +110,7 @@ class Alerts extends Component {
         })
         .then(resp => {
           const result = resp.data;
+          console.log("Received data: " + result);
           this.setSelectOptions(event.target, result, "modelName");
         });
     } else {
@@ -114,7 +128,6 @@ class Alerts extends Component {
       var options = this.loggedInUser.endpoints;
       sel2 = event.target;
       //We need to go get the endpoint's models
-      console.log("sending request");
       axios
         .post("/api/endpoints/getModels", {
           _id: this.state.endpoint
@@ -131,6 +144,9 @@ class Alerts extends Component {
   };
 
   handleChange = event => {
+    /*console.log(
+      "Name: " + event.target.name + ", Value: " + event.target.value
+    );*/
     this.setState({
       [event.target.name]: event.target.value
     });
@@ -178,15 +194,63 @@ class Alerts extends Component {
               <option value="">- Select a label -</option>
             </select>
 
-            <form
-              className="ui form"
-              onChange={this.onChange}
-              onSubmit={this.submitAlert}
-            >
+            <form className="ui form">
+              <div className="field">
+                <label>
+                  Enter timespan between all entries to model to check against
+                  alert
+                </label>
+                <input
+                  min="1"
+                  type="number"
+                  name="timespan"
+                  value={this.state.timespan}
+                  onChange={this.handleChange}
+                  placeholder="10"
+                />
+              </div>
+              <div className="form-check">
+                <label>
+                  <input
+                    onChange={this.handleChange}
+                    type="radio"
+                    name="timeUnits"
+                    value="hours"
+                    className="form-check-input"
+                  />
+                  Hours
+                </label>
+                <br />
+                <label>
+                  <input
+                    onChange={this.handleChange}
+                    type="radio"
+                    name="timeUnits"
+                    value="days"
+                    className="form-check-input"
+                  />
+                  Days
+                </label>
+                <br />
+                <label>
+                  <input
+                    onChange={this.handleChange}
+                    type="radio"
+                    name="timeUnits"
+                    value="weeks"
+                    className="form-check-input"
+                  />
+                  Weeks
+                </label>
+              </div>
+            </form>
+
+            <form className="ui form" onSubmit={this.submitAlert}>
               <div className="field">
                 <label>Enter threshold amount to trigger</label>
                 <input
                   type="number"
+                  min="1"
                   name="threshold"
                   value={this.state.threshold}
                   onChange={this.handleChange}
@@ -205,10 +269,30 @@ class Alerts extends Component {
           <h1>Model: {this.state.selectedModel}</h1>
           <h1>Endpoint: {this.state.endpoint}</h1>
           <h1>Label: {this.state.label}</h1>
+          <h1>
+            Timespan: {this.state.timespan} {this.state.timeUnits}
+          </h1>
           <h1>Threshold: {this.state.threshold}</h1>
         </div>
       </div>
     );
+  }
+
+  getAlertDate(duration, units) {
+    var end = Date.now();
+    if (units === "days") {
+      //add days
+      end.setDate(end.getDate() + duration);
+    } else if (units === "hours") {
+      //add hours
+      end.setDate(end.getDate() + duration / 24);
+    } else if (units === "weeks") {
+      //add weeks
+      end.setDate(end.getDate() + duration * 7);
+    } else {
+      console.log("ERROR: Wrong unit type of time in Alerts.getAlertDate()");
+    }
+    return end;
   }
 }
 
