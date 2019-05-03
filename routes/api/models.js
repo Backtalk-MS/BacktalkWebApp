@@ -2,8 +2,10 @@ const router = require("express").Router(),
   mongoose = require("mongoose"),
   passport = require("passport"),
   axios = require("axios"),
-  upload = require("../../configuration/storage");
-fs = require("fs");
+  upload = require("../../configuration/storage"),
+  fs = require("fs"),
+  fileStoragePath = require("../../configuration/storage"),
+  FormData = require("form-data");
 
 //IMPORT FORM VALIDATION vvvvvv//
 
@@ -108,6 +110,45 @@ router.post(
     //Original file name: req.file.originalname
     //filename on filesystem: req.file.filename
     //Once client uploads a file here we dispatch it to the training server
+    //submitting request to localhost:5000/upload
+    //formData format with file: <file>
+    const uploadFilePath = "./clientUploads/";
+    fs.readFile(uploadFilePath + req.file.filename, "utf8", (error, data) => {
+      if (error) {
+        console.log(`read file failed with error: ${error}`);
+      } else {
+        const newModel = new Model({
+          user: req.user.id,
+          name: req.user.handle
+        });
+        newModel.save((err, newlyCreatedModel) => {
+          if (!newlyCreatedModel) {
+            console.log(
+              `Failed to create new model in model.js POST /train route ${err}`
+            );
+          } else {
+            var formData = new FormData();
+            console.log("got here");
+            formData.append("file", data, {
+              filepath: uploadFilePath + req.file.filename,
+              contentType: "application/json"
+            });
+            formData.append("originalFileName", req.file.originalname);
+            formData.append("modelDatabaseID", newlyCreatedModel.id);
+            console.log(data);
+            axios
+              .post("http://localhost:5000/train", formData, {
+                headers: formData.getHeaders()
+              })
+              .then(resp => {
+                console.log(resp);
+              })
+              .catch(err => console.log(`here: ${err}`));
+          }
+        });
+      }
+    });
+
     res.json({ msg: req.file });
   }
 );

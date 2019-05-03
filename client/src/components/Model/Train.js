@@ -22,7 +22,6 @@ class Train extends Component {
     let formData = new FormData();
     formData.append("description", description);
     formData.append("selectedFile", selectedFile);
-    console.log(this.state.selectedFile);
     axios
       .post("/api/models/train", formData)
       .then(console.log("Successfully uploaded a file"))
