@@ -17,17 +17,20 @@ class Navbar extends Component {
 
   render() {
     return (
-      <div className="ui fixed inverted menu">
+      <div className="ui fixed inverted menu pointing">
         <div className="ui container">
           <Link to="/" className="header item">
             {" "}
             BackTalk Demo{" "}
           </Link>
-          <Link to="/" className="item">
+          <Link to="/" className=" item">
             Home
           </Link>
           <div className="right menu">
             /
+            <Link to="/About" className="item">
+              About Us
+            </Link>
             <Link to="/Account" className="item">
               Account
             </Link>

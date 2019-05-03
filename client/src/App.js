@@ -5,6 +5,7 @@ import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import Landing from "./components/layout/Landing";
 import "./App.css";
+import About from "./components/about/About";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import Predict from "./components/Model/Predict";
@@ -31,6 +32,7 @@ class App extends Component {
       <Provider store={store}>
         <Router>
           <div className="App">
+          <div class="sticky-wrap">
             <Navbar />
             <Route exact path="/" component={Landing} />
             <br />
@@ -39,10 +41,12 @@ class App extends Component {
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/models/predict" component={Predict} />
+              <Route exact path="/about" component={About} />
               <Route exact path="/account" component={Account} />
               <Route exact path="/alerts" component={Alerts} />
               <Route exact path="/models/train" component={Train} />
               <Route exact path="/endpoints" component={Endpoints} />
+            </div>
             </div>
             <Footer />
           </div>

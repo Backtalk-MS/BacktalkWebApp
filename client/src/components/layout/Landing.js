@@ -1,48 +1,123 @@
 import React, { Component } from "react";
+import {
+  Button,
+  Container,
+  Divider,
+  Grid,
+  Header,
+  Icon,
+  Image,
+  List,
+  Menu,
+  Responsive,
+  Segment,
+  Sidebar,
+  Visibility
+} from "semantic-ui-react";
 
 class Landing extends Component {
   render() {
     return (
-      <div>
-        <div className="ui main text container">
-          {/* <h1 className="ui header">Spooky</h1> */}
-          <br />
-          <br />
-          <p>
-            <strong>Home Page</strong>
+      <Container>
+      <Segment style={{ padding: "8em 0em" }} vertical>
+        <Grid container stackable verticalAlign="middle">
+          <Grid.Row>
+            <Grid.Column width={8}>
+              <Header as="h3" style={{ fontSize: "2em" }}>
+                We Help Companies and Companions
+              </Header>
+              <p style={{ fontSize: "1.33em" }}>
+                We can give your company superpowers to do things that they never
+                thought possible. Let us delight your customers and empower your
+                needs... through pure data analytics.
+              </p>
+              <Header as="h3" style={{ fontSize: "2em" }}>
+                We Make Bananas That Can Dance
+              </Header>
+              <p style={{ fontSize: "1.33em" }}>
+                Yes that's right, you thought it was the stuff of dreams, but even
+                bananas can be bioengineered.
+              </p>
+            </Grid.Column>
+            <Grid.Column floated="right" width={6}>
+              <Image
+                bordered
+                rounded
+                size="large"
+                src="/images/wireframe/white-image.png"
+              />
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row>
+            <Grid.Column textAlign="center">
+              <Button size="huge">Check Them Out</Button>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </Segment>
+  
+      <Segment style={{ padding: "0em" }} vertical>
+        <Grid celled="internally" columns="equal" stackable>
+          <Grid.Row textAlign="center">
+            <Grid.Column style={{ paddingBottom: "5em", paddingTop: "5em" }}>
+              <Header as="h3" style={{ fontSize: "2em" }}>
+                "What a Company"
+              </Header>
+              <p style={{ fontSize: "1.33em" }}>
+                That is what they all say about us
+              </p>
+            </Grid.Column>
+            <Grid.Column style={{ paddingBottom: "5em", paddingTop: "5em" }}>
+              <Header as="h3" style={{ fontSize: "2em" }}>
+                "I shouldn't have gone with their competitor."
+              </Header>
+              <p style={{ fontSize: "1.33em" }}>
+                <Image avatar src="/images/avatar/large/nan.jpg" />
+                <b>Nan</b> Chief Fun Officer Acme Toys
+              </p>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </Segment>
+  
+      <Segment style={{ padding: "8em 0em" }} vertical>
+        <Container text>
+          <Header as="h3" style={{ fontSize: "2em" }}>
+            Breaking The Grid, Grabs Your Attention
+          </Header>
+          <p style={{ fontSize: "1.33em" }}>
+            Instead of focusing on content creation and hard work, we have learned
+            how to master the art of doing nothing by providing massive amounts of
+            whitespace and generic content that can seem massive, monolithic and
+            worth your attention.
           </p>
-          <p>
-            <strong>Streamlining User Feedback</strong>
+          <Button as="a" size="large">
+            Read More
+          </Button>
+  
+          <Divider
+            as="h4"
+            className="header"
+            horizontal
+            style={{ margin: "3em 0em", textTransform: "uppercase" }}
+          >
+            <a href="#root">Case Studies</a>
+          </Divider>
+  
+          <Header as="h3" style={{ fontSize: "2em" }}>
+            Did We Tell You About Our Bananas?
+          </Header>
+          <p style={{ fontSize: "1.33em" }}>
+            Yes I know you probably disregarded the earlier boasts as non-sequitur
+            filler content, but it's really true. It took years of gene splicing
+            and combinatory DNA research, but our bananas can really dance.
           </p>
-          <p>
-            Lorem ipsum dolor amet pour-over bespoke typewriter knausgaard
-            yuccie you probably haven't heard of them single-origin coffee.
-            Microdosing cardigan vinyl prism, heirloom yr shaman gluten-free
-            raclette blue bottle. Gastropub polaroid shoreditch gochujang hell
-            of affogato. Put a bird on it bicycle rights distillery, live-edge
-            unicorn single-origin coffee poutine irony copper mug ugh
-            cold-pressed.
-          </p>
-          <p>
-            Bespoke fashion axe next level, glossier readymade fanny pack enamel
-            pin waistcoat semiotics. Shoreditch portland listicle kitsch. Irony
-            ugh chambray schlitz art party food truck succulents. Mumblecore air
-            plant coloring book retro, roof party meh chicharrones truffaut
-            8-bit tousled pitchfork. Live-edge tattooed health goth kale chips,
-            lomo brunch try-hard raclette subway tile coloring book 3 wolf moon.
-            Fixie cardigan marfa yuccie. Neutra four dollar toast pok pok
-            drinking vinegar distillery.
-          </p>
-          <p>
-            Schlitz iPhone readymade bitters four dollar toast marfa retro man
-            bun pop-up pinterest affogato poke banh mi. Retro DIY tbh shoreditch
-            farm-to-table. YOLO heirloom kitsch kale chips letterpress authentic
-            live-edge. Mustache seitan yr irony. Raclette master cleanse
-            heirloom kinfolk locavore taxidermy lomo vape.
-          </p>
-          <br />
-        </div>
-      </div>
+          <Button as="a" size="large">
+            I'm Still Quite Interested
+          </Button>
+        </Container>
+      </Segment>
+    </Container>
     );
   }
 }

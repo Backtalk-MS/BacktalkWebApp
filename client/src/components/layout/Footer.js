@@ -1,9 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import './Footer.css'; // use footer
 
 export default () => {
   return (
-    <div className="ui inverted vertical footer segment">
+    <div className="ui inverted vertical sticky-footer segment">
       <div className="ui center aligned container">
         <div className="ui horizontal inverted small divided link list">
           <Link className="item" to="/">
