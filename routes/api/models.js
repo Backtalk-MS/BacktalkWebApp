@@ -129,21 +129,33 @@ router.post(
           } else {
             var formData = new FormData();
             console.log("got here");
-            formData.append("file", data, {
-              filepath: uploadFilePath + req.file.filename,
-              contentType: "application/json"
-            });
+            // formData.append("file", data, {
+            //   filepath: uploadFilePath + req.file.filename,
+            //   contentType: "application/json"
+            // });
+            formData.append(
+              "file",
+              fs.createReadStream(uploadFilePath + req.file.filename)
+            );
             formData.append("originalFileName", req.file.originalname);
             formData.append("modelDatabaseID", newlyCreatedModel.id);
-            console.log(data);
-            axios
-              .post("http://localhost:5000/train", formData, {
-                headers: formData.getHeaders()
-              })
-              .then(resp => {
+            formData.submit("http://localhost:5000/train", (err, resp) => {
+              if (err) {
+                console.log(`formdata.submit error: ${err}`);
+              } else {
                 console.log(resp);
-              })
-              .catch(err => console.log(`here: ${err}`));
+              }
+            });
+            // axios
+            //   .post("http://localhost:5000/train", formData, {
+            //     headers: {
+            //       "Content-Type": "application/json"
+            //     }
+            //   })
+            //   .then(resp => {
+            //     console.log(resp);
+            //   })
+            //   .catch(err => console.log(`here: ${err}`));
           }
         });
       }
