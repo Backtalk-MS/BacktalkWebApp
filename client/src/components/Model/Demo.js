@@ -64,36 +64,32 @@ class Demo extends Component {
             </Item>
 
             <Item>
-            <Link to="/SoftwareGroups" className="header item">
+            <Link to="/Endpoints" className="header item">
             <button class="circular massive ui icon button">
                 <i class="pencil alternative icon"></i>
             </button>
             </Link>
               <Item.Content>
-                <Link to="/SoftwareGroups" className="header item">
+                <Link to="/Endpoints" className="header item">
                 <Item.Header as='a'>Software Groups</Item.Header>
                 <Item.Description>
                   <p>Edit and view endpoints</p>
-                  <p>*FUTURE FUNCTIONALITY*</p>
                 </Item.Description>
                 </Link>
               </Item.Content>
             </Item>
 
             <Item>
-            <Link to="/Visualize" className="header item">
             <button class="circular massive ui icon button">
                 <i class="folder open icon"></i>
             </button>
-            </Link>
+
               <Item.Content>
-                <Link to="/Visualize" className="header item">
                 <Item.Header as='a'>Visualize</Item.Header>
                 <Item.Description>
                   <p>View categories and statistics</p>
                   <p>*FUTURE FUNCTIONALITY*</p>
                 </Item.Description>
-                </Link>
               </Item.Content>
             </Item>
 

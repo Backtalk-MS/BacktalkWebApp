@@ -35,6 +35,7 @@ router.post(
                   threshold: req.body.threshold, //chosen threshold
                   timespan: req.body.timespan //TODO: filler MUST CHANGE to now + timespan
                 };
+                console.log("we get here boys")
                 new Alert(alertToInsert) //store
                   .save()
                   .then(savedAlert => {
