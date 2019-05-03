@@ -107,12 +107,13 @@ class Alerts extends Component {
   };
 
   handleChange = event => {
-    /*console.log(
+    console.log(
       "Name: " + event.target.name + ", Value: " + event.target.value
-    );*/
+    );
     this.setState({
       [event.target.name]: event.target.value
     });
+    console.log(this.state.endpoint);
   };
 
   render() {

@@ -4,14 +4,18 @@ import axios from "axios";
 import { Bar, Pie /*Line, defaults*/ } from "react-chartjs-2";
 import update from "immutability-helper";
 import { getCurrentUser } from "../../actions/authActions";
+import { setSelectOptions } from "../../utilities/componentTools";
 
 class Predict extends Component {
   constructor() {
     super();
+    this.loggedInUser = getCurrentUser();
     this.state = {
       commentToPredict: "test",
       errors: {},
       predictionResult: "Microsoft office",
+      modelType: "feedback",
+      endpoint: "",
       chartDataPoints: {},
       chartDatagram: {
         labels: ["category", "sentiment", "Custom Model1"],
@@ -23,20 +27,38 @@ class Predict extends Component {
         ]
       }
     };
-    this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
+    //this.onChange = this.onChange.bind(this);
+    //this.onSubmit = this.onSubmit.bind(this);
   }
 
-  onChange(event) {
+  handleSelect = event => {
+    //this.state.endpoint = event.target.name;
+    setSelectOptions(
+      event.target,
+      this.loggedInUser.endpoints,
+      "endpointsName"
+    );
+  };
+
+  onChange = event => {
+    /*console.log(
+      "name: " + event.target.name + ", value: " + event.target.value
+    );*/
     this.setState({ [event.target.name]: event.target.value });
-  }
+    if (event.target.name === "endpoint") {
+      this.state.endpoint = event.target.value;
+    }
+  };
 
-  onSubmit(event) {
+  onSubmit = event => {
     event.preventDefault();
     console.log(typeof getCurrentUser() === "undefined");
+    console.log(this.state.endpoint);
     axios
-      .post("/api/models/5c915fd60952fe1628d2a3a2", {
-        comment: this.state.commentToPredict
+      .post("/api/models/predict", {
+        comment: this.state.commentToPredict,
+        modelType: this.state.modelType,
+        endpointId: this.state.endpoint
       })
       .then(resp => {
         const result = resp.data;
@@ -72,7 +94,7 @@ class Predict extends Component {
         this.setState({ chartDatagram: dataGramCopy });
       })
       .catch(err => console.log(err));
-  }
+  };
 
   render() {
     return (
@@ -99,20 +121,55 @@ class Predict extends Component {
               placeholder="I love microsoft, I have no complaints"
             />
           </div>
-          <div className="ui simple compacted menu" align="center">
-            <select
-              value={this.state.endpoint}
-              name="endpoint"
-              id="sel1"
-              onClick={this.updateSelect}
-              onChange={this.handleChange}
-            >
-              <option value="">- Select an Endpoint -</option>
-            </select>
-            <button className="ui button" type="submit">
-              Predict
-            </button>
+
+          <div className="form-check">
+            <label>
+              <input
+                onChange={this.onChange}
+                type="radio"
+                name="modelType"
+                value="bug"
+                className="form-check-input"
+              />
+              Bug Report
+            </label>
+            <label>
+              <input
+                onChange={this.onChange}
+                type="radio"
+                name="modelType"
+                value="feedback"
+                className="form-check-input"
+              />
+              General Comment
+            </label>
+            <label>
+              <input
+                onChange={this.onChange}
+                type="radio"
+                name="modelType"
+                value="review"
+                className="form-check-input"
+              />
+              Review
+            </label>
+            <form>
+              <div className="ui simple compacted menu" align="center">
+                <select
+                  value={this.state.endpoint}
+                  name="endpoint"
+                  id="sel1"
+                  onChange={this.onChange}
+                  onClick={this.handleSelect}
+                >
+                  <option value="">- Select an Endpoint -</option>
+                </select>
+              </div>
+            </form>
           </div>
+          <button className="ui button" type="submit" name="NOT ENDPOINT">
+            Predict
+          </button>
         </form>
         <div className="ui visible message">
           <p>{this.state.predictionResult}</p>

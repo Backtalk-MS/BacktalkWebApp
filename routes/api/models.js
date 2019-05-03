@@ -204,7 +204,7 @@ router.post(
 // We assume the comment will be submitted via req.body.comment
 //TODO: Need to add a check for threshold reached against any alerts for that model
 router.post(
-  "/:model_id",
+  "predict/:model_id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const errors = {};
@@ -240,6 +240,79 @@ router.post(
           .catch(err => console.log(err));
       }
     });
+  }
+);
+
+// @route   POST api/models/:model_id
+// @desc    Submit comment to predictive webservice
+// @access  Private
+// We assume the comment will be submitted via req.body.comment
+//TODO: Need to add a check for threshold reached against any alerts for that model
+router.post(
+  "/predict",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const errors = {};
+    if (req.body.modelType === "feedback" || req.body.modelType === "review") {
+      modelName = "Default Sentiment";
+    } else {
+      modelName = "Default Category";
+    }
+    //We have an endpoint and model TYPE to post
+    Model.findOne({ name: modelName })
+      .then(foundModel => {
+        if (foundModel) {
+          console.log("FOUND the model");
+          Endpoints.findOne({ id: req.body.id })
+            .then(foundEnd => {
+              if (foundEnd) {
+                console.log("FOUND the endpoint");
+                axios
+                  .post("localhost:5000/predict/sentiment", {
+                    rawText: req.body.comment,
+                    type: req.body.modelType,
+                    model_name: "Default Sentiment"
+                  })
+                  .then(res => {
+                    //We have received a sentiment and 'processed text'
+                    console.log("getting prediction");
+                    const result = res["result"];
+                    const predictionResults = {
+                      comment: req.body.comment,
+                      result
+                    };
+                    foundModel.predictiveResults.unshift(predictionResults);
+                    foundModel
+                      .save()
+                      .then()
+                      .catch(err => {
+                        console.log(
+                          `ERROR: encountered during prediction save: ${error}`
+                        );
+                      });
+                  })
+                  .catch(error => {
+                    console.log(
+                      `ERROR: Problem in api/models/predict with endpoint error: ${error}`
+                    );
+                  });
+              } else {
+                console.log("Endpoint not found!!!!!");
+                return res.status(409).json("Couldn't find endpoint.");
+              }
+            })
+            .catch(error => {
+              console.log(
+                `ERROR: Problem in api/models/predict with error: ${error}`
+              );
+            });
+        } else {
+          console.log("Model was not found!!!");
+        }
+      })
+      .catch(err => {
+        console.log(`ERROR: Problem with finding models or endpoint: ${err}`);
+      });
   }
 );
 

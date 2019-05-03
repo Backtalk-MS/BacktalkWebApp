@@ -9,10 +9,6 @@ const baseOptions = {
 const OutputBaseSchema = mongoose.model(
   new Schema(
     {
-      /*ID: {
-        type: Number,//Integer always incrementing with each new to our system
-        required: true
-    }, //This is already done by mongoDB. Every object has it's own id*/
       rawtext: {
         type: String,
         required: true

@@ -13,7 +13,7 @@ const BugSchema = Base.discriminator(
       type: String, //ie. visual, performance, maintenance
       required: true
     },
-    assigned: {
+    assigned: {//Whether or not the bug is assigned to a team member
       type: Boolean,
       required: false
     },
