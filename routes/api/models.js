@@ -47,7 +47,8 @@ router.post(
         } else {
           const newModel = {
             user: req.user.id,
-            name: req.body.name
+            name: req.body.name,
+            endpoints: []
           };
           if (req.body.postURL && req.body.apiKey) {
             /////MODEL WEBSERVICE IS ALREADY UP, JUST REGISTER INTERNALLY

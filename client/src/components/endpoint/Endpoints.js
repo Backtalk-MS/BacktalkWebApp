@@ -32,6 +32,7 @@ class Endpoint extends Component {
     //create json object to store
     //check if the threshold is negative, if it is error
     //store
+
     if (this.state.endpoint === "") {
       console.log("Invalid endpoint");
       return;
