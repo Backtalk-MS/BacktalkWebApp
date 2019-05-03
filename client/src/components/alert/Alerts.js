@@ -55,6 +55,7 @@ class Alerts extends Component {
       .then(resp => {
         const result = resp.data;
         console.log(result);
+        alert("Created alert for chosen Software group.");
       })
       .catch(err => {
         console.log("This being called before button press is scarry");
@@ -151,7 +152,7 @@ class Alerts extends Component {
               onClick={this.updateSelect}
               onChange={this.handleChange}
             >
-              <option value="">- Select an Endpoint -</option>
+              <option value="">- Select a Software Group -</option>
             </select>
 
             <select
