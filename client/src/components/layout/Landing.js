@@ -57,8 +57,7 @@ class Landing extends Component {
                 "I shouldn't have gone with their competitor."
               </Header>
               <p style={{ fontSize: "1.33em" }}>
-                <Image avatar src="/images/avatar/large/nan.jpg" />
-                <b>Nan</b> Chief Fun Officer Acme Toys
+                <b>Aleks</b> Data Analyst
               </p>
             </Grid.Column>
           </Grid.Row>
@@ -71,14 +70,13 @@ class Landing extends Component {
             Breaking The Grid, Grabs Your Attention
           </Header>
           <p style={{ fontSize: "1.33em" }}>
-            Instead of focusing on content creation and hard work, we have learned
-            how to master the art of doing nothing by providing massive amounts of
-            whitespace and generic content that can seem massive, monolithic and
-            worth your attention.
+            BackTalk groups, classifies, and displays text 
+            based on sentiment and context in a scalable and dynamic environment. This allows 
+            companies to interpolate consumer feedback on a large scale and search for trends,
+            identify specific bugs or abnormalities in real time, create alerts for keywords 
+            such as "broken" or "newest update" and display results on varied graphs and/or 
+            charts for simple and easy analysis.  
           </p>
-          <Button as="a" size="large">
-            Read More
-          </Button>
         </Container>
       </Segment>
       </Container>
