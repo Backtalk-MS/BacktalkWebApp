@@ -128,11 +128,6 @@ router.post(
             );
           } else {
             var formData = new FormData();
-            console.log("got here");
-            // formData.append("file", data, {
-            //   filepath: uploadFilePath + req.file.filename,
-            //   contentType: "application/json"
-            // });
             formData.append(
               "file",
               fs.createReadStream(uploadFilePath + req.file.filename)
@@ -156,6 +151,10 @@ router.post(
             //     console.log(resp);
             //   })
             //   .catch(err => console.log(`here: ${err}`));
+            // formData.append("file", data, {
+            //   filepath: uploadFilePath + req.file.filename,
+            //   contentType: "application/json"
+            // });
           }
         });
       }
