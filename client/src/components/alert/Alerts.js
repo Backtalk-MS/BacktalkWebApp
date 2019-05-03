@@ -17,6 +17,8 @@ class Alerts extends Component {
       timeUnits: "hrs",
       errors: {}
     };
+
+    this.counter = 0;
   }
 
   submitAlert = event => {

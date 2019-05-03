@@ -70,11 +70,10 @@ class Demo extends Component {
             </button>
             </Link>
               <Item.Content>
-                <Link to="/SoftwareGroups" className="header item">
+                <Link to="/Endpoints" className="header item">
                 <Item.Header as='a'>Software Groups</Item.Header>
                 <Item.Description>
                   <p>Edit and view endpoints</p>
-                  <p>*FUTURE FUNCTIONALITY*</p>
                 </Item.Description>
                 </Link>
               </Item.Content>
