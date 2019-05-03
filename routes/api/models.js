@@ -4,6 +4,8 @@ const router = require("express").Router(),
   axios = require("axios"),
   upload = require("../../configuration/storage");
 
+const Endpoints = require("../../models/Endpoint");
+
 //IMPORT FORM VALIDATION vvvvvv//
 
 //IMPORT FORM VALIDATION ^^^^^^//
@@ -29,7 +31,8 @@ router.post(
     //^^^^^^^^^^PERFORM VALIDATION HERE^^^^^^^^^^^^^ (Seriously don't forget, before it deploys....)
     modelFields = {
       user: req.user.id,
-      name: req.body.name
+      name: req.body.name,
+      endpoints: []
     };
     // User.findById(req.user.id)
     //   .populate("trainedModels")
@@ -48,7 +51,8 @@ router.post(
           const newModel = {
             user: req.user.id,
             name: req.body.name,
-            endpoints: []
+            endpoints: [],
+            labels: []
           };
           if (req.body.postURL && req.body.apiKey) {
             /////MODEL WEBSERVICE IS ALREADY UP, JUST REGISTER INTERNALLY
@@ -92,6 +96,32 @@ router.post(
       .catch(err =>
         console.log(`Error in mongoose model query POST api/models ${err}`)
       );
+  }
+);
+
+// @route   POST api/models/labels
+// @desc    Retrieves list of labels for a given model
+// @access  Private
+router.post(
+  "/labels",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const errors = {};
+    console.log("we made it!");
+
+    Model.findOne({ name: req.body.name })
+      .then(foundModel => {
+        if (!foundModel) {
+          console.log("Couldn't find model");
+          return res.status(409).json("");
+        } else {
+          console.log("Found model!");
+          return res.json(foundModel.labels);
+        }
+      })
+      .catch(error => {
+        console.log(`ERROR In api/models/labels with error: ${error}`);
+      });
   }
 );
 

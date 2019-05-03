@@ -9,6 +9,31 @@ const User = require("../../models/User");
 //Test route
 router.get("/index", (req, res) => res.json({ message: "Hope you see this" }));
 
+//get endpoint information
+router.post(
+  "/getModels",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const errors = {};
+    //Does the endpoint exist
+    Endpoint.findOne({ _id: req.body._id })
+      .then(foundEndpoint => {
+        if (!foundEndpoint) {
+          console.log("Endpoint not found");
+          return res.status(409).json({});
+        } else {
+          console.log("Found endpoint.");
+          var models = foundEndpoint.models;
+          return res.json({ models });
+        }
+      })
+      .catch(error => {
+        console.log(`ERROR in api/endpoints/getEndpoint with error: ${error}`);
+      });
+  }
+);
+
+//Add new endpoint
 router.post(
   "/",
   passport.authenticate("jwt", { session: false }),
@@ -32,8 +57,6 @@ router.post(
           });
           endPointToInsert.save().then(insertedEndPoint => {
             if (insertedEndPoint) {
-              //console.log("Is the below endpoint validly constructed?");
-              //console.log(insertedEndPoint);
               User.findById(req.user.id)
                 .then(foundUser => {
                   if (foundUser) {

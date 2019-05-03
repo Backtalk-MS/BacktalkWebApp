@@ -30,12 +30,15 @@ class Alerts extends Component {
       return;
     }
 
-    if (selectList.length !== Array(options).length + 1) {
+    if (selectList.length < Array(options).length + 1) {
+      //2 for the initial default models
       //Only does it once
-      for (var i = 0; i < Array(options).length; i++) {
+      console.log("Adding options");
+      for (var i = 0; i < options.length; i++) {
+        var endpoint = options[i];
         var newOption = document.createElement("option");
-        newOption.value = Array(options)[i];
-        newOption.text = stateAttribute /*String(Array(options)[i])*/;
+        newOption.value = endpoint;
+        newOption.text = options[i] /*String(Array(options)[i])*/;
         selectList.appendChild(newOption);
       }
     } else {
@@ -63,6 +66,7 @@ class Alerts extends Component {
       return;
     }
 
+    console.log("Submitting alert...");
     axios
       .post("/api/alerts", {
         endpoint: this.state.endpoint,
@@ -74,7 +78,30 @@ class Alerts extends Component {
       .then(resp => {
         const result = resp.data;
         console.log(result);
+      })
+      .catch(err => {
+        console.log("This being called before button press is scarry");
       });
+  };
+
+  updateLabels = event => {
+    if (this.state.selectedModel === "Default Sentiment") {
+      console.log("just set the ranges manually...");
+      //Labels turn into number ranges
+    } else if (this.state.selectedModel === "Default Category") {
+      //Grab labels from model
+      console.log("Going to get labels: " + this.state.selectedModel);
+      axios
+        .post("/api/models/labels", {
+          name: this.state.selectedModel
+        })
+        .then(resp => {
+          const result = resp.data;
+          this.setSelectOptions(event.target, result, "modelName");
+        });
+    } else {
+      console.log("First choose model.");
+    }
   };
 
   updateSelect = event => {
@@ -84,7 +111,20 @@ class Alerts extends Component {
       this.setSelectOptions(sel1, this.loggedInUser.endpoints, "endpoint");
     } else if (event.target.name === "selectedModel") {
       sel2 = event.target;
-      this.setSelectOptions(sel2, this.loggedInUser.endpoints.models, "model");
+      var options = this.loggedInUser.endpoints;
+      sel2 = event.target;
+      //We need to go get the endpoint's models
+      console.log("sending request");
+      axios
+        .post("/api/endpoints/getModels", {
+          _id: this.state.endpoint
+        })
+        .then(resp => {
+          options = resp.data;
+          console.log("Models received.");
+        });
+      Array(options).concat(["Default Sentiment", "Default Category"]);
+      this.setSelectOptions(sel2, options, "model");
     } else {
       console.log("Not used on something worth while...");
     }
@@ -125,16 +165,17 @@ class Alerts extends Component {
               id="sel2"
             >
               <option value="">- Select a model -</option>
-              <option value="model y">Model y</option>
+              <option value="Default Sentiment">Default Sentiment Model</option>
+              <option value="Default Category">Default Category Model</option>
             </select>
 
             <select
               value={this.state.label}
               name="label"
               onChange={this.handleChange}
+              onClick={this.updateLabels}
             >
               <option value="">- Select a label -</option>
-              <option value="Label 1">Label 1</option>
             </select>
 
             <form

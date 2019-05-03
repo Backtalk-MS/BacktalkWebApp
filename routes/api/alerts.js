@@ -10,6 +10,7 @@ const Endpoint = require("../../models/Endpoint");
 //Test route
 router.get("/index", (req, res) => res.json({ message: "Hope you see this" }));
 
+//Inserting new alert
 router.post(
   "/",
   passport.authenticate("jwt", { session: false }),
