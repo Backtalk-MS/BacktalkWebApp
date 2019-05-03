@@ -17,7 +17,7 @@ router.post(
   (req, res) => {
     const errors = {};
     //Does the endpoint and model exist
-    Endpoint.findOne({ name: req.body.endpoint })
+    Endpoint.findOne({ _id: req.body.endpoint })
       .then(foundEndpoint => {
         if (!foundEndpoint) {
           console.log("Endpoint to place alert doesn't exist.");
@@ -35,7 +35,6 @@ router.post(
                   threshold: req.body.threshold, //chosen threshold
                   timespan: req.body.timespan //TODO: filler MUST CHANGE to now + timespan
                 };
-                console.log("we get here boys")
                 new Alert(alertToInsert) //store
                   .save()
                   .then(savedAlert => {
@@ -43,6 +42,7 @@ router.post(
                       return res.status(418);
                     } else {
                       foundModel.alerts.unshift(savedAlert.id);
+                      console.log("Alert saved");
                     }
                   })
                   .catch(err => {

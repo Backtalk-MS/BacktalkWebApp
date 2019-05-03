@@ -64,7 +64,12 @@ class Alerts extends Component {
   updateLabels = event => {
     if (this.state.selectedModel === "Default Sentiment") {
       //Labels turn into number ranges
-      setSelectOptions(event.target, ["1-0.8", "0.8-0.6", "0.6-0.4", "0.4-0.2", "0.2-0"], "die");     
+      //console.log("wat");
+      setSelectOptions(
+        event.target,
+        ["1-0.8", "0.8-0.6", "0.6-0.4", "0.4-0.2", "0.2-0"],
+        "die"
+      );
     } else if (this.state.selectedModel === "Default Category") {
       //Grab labels from model
       console.log("Going to get labels: " + this.state.selectedModel);
@@ -242,8 +247,6 @@ class Alerts extends Component {
       </div>
     );
   }
-
-  
 }
 
 export default Alerts;
